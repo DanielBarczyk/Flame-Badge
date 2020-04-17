@@ -19,12 +19,21 @@ public abstract class GameMap {
     GameMap(){
         playableCharacters = new ArrayList<>();
         enemyCharacters = new ArrayList<>();
-        playableCharacters.add(new PlayableCharacter(1,2,this,"testchar.png"));
-        playableCharacters.add(new PlayableCharacter(0,3,this,"testchar2.png"));
-        enemyCharacters.add(new EnemyCharacter(7,3,this,"testenemy.png"));
-        enemyCharacters.add(new EnemyCharacter(6,2,this,"testenemy.png"));
+        addPlayableCharacters();
+        addEnemyCharacters();
         activeCharacter=playableCharacters.get(0);
     }
+
+    private void addPlayableCharacters(){
+        playableCharacters.add(new PlayableCharacter(1,2,this,"testchar.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(0,3,this,"testchar2.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+    }
+
+    private void addEnemyCharacters(){
+        enemyCharacters.add(new EnemyCharacter(7,3,this,"testenemy.png",EnemyCharacter.setStats(8,3,4,2,1,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(6,2,this,"testenemy.png",EnemyCharacter.setStats(9,3,4,2,1,1,0,3,0)));
+    }
+
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){
         for(Entity entity: playableCharacters){
             entity.render(spriteBatch);
