@@ -3,6 +3,7 @@ package com.oop.project.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 
 import java.util.HashMap;
@@ -14,12 +15,15 @@ public abstract class Entity {
     private GameMap map;
     HashMap<Stats,Integer> unitStats;
     HashMap<Stats,Integer> growths;
+    int currentHp;
     Texture image;
+    private Ranges range;
 
-    Entity(int x,int y, EntityType type, GameMap map) {
+    Entity(int x,int y, EntityType type, GameMap map,Ranges range) {
         this.pos = new Vector2(x,y);
         this.type = type;
         this.map = map;
+        this.range=range;
     }
 
     public void update(float delta){
@@ -80,9 +84,30 @@ public abstract class Entity {
         return hashMap;
     }
 
+
+    public void takeDamage(int damage) {
+        currentHp -= damage;
+    }
+
+    public int getCurrentHp(){
+        return currentHp;
+    }
+
+    public Ranges getRange() {
+        return range;
+    }
+
+    public HashMap<Stats, Integer> getUnitStats() {
+        return unitStats;
+    }
+
     public EntityType getType() {
         return type;
     }
 
-
+    public int getDistance(Entity b){
+        if(pos.x!=b.pos.x)
+            return (int)Math.abs(b.pos.x-pos.x);
+        return (int)Math.abs(b.pos.y-pos.y);
+    }
 }

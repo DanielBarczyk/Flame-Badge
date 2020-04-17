@@ -3,6 +3,7 @@ package com.oop.project.map;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.oop.project.battles.Ranges;
 import com.oop.project.entities.EnemyCharacter;
 import com.oop.project.entities.Entity;
 import com.oop.project.entities.PlayableCharacter;
@@ -25,13 +26,13 @@ public abstract class GameMap {
     }
 
     private void addPlayableCharacters(){
-        playableCharacters.add(new PlayableCharacter(1,2,this,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
-        playableCharacters.add(new PlayableCharacter(0,3,this,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(1,2,this, Ranges.MELEE,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(0,3,this, Ranges.BOWS,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
     }
 
     private void addEnemyCharacters(){
-        enemyCharacters.add(new EnemyCharacter(7,3,this,"testenemy.png",EnemyCharacter.setStats(8,3,4,2,1,1,0,3,0)));
-        enemyCharacters.add(new EnemyCharacter(6,2,this,"testenemy.png",EnemyCharacter.setStats(9,3,4,2,1,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,3,4,2,1,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,3,4,2,1,1,0,3,0)));
     }
 
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){

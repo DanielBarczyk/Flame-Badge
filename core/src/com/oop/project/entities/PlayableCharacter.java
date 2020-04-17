@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 
@@ -15,10 +16,9 @@ public class PlayableCharacter extends Entity {
     private Texture actedImage;
     private boolean active;
     private int moveLeft;
-    private int currentHp;
 
-    public PlayableCharacter(int x, int y, GameMap map,String pathToPng,String pathToActedImage,HashMap<Stats, Integer> unitStats,HashMap<Stats, Integer> growths) {
-        super(x, y, EntityType.PLAYER_UNIT, map);
+    public PlayableCharacter(int x, int y, GameMap map, Ranges range, String pathToPng, String pathToActedImage, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
+        super(x, y, EntityType.PLAYER_UNIT, map,range);
         this.unitStats=unitStats;
         this.growths=growths;
         moveLeft=unitStats.get(Stats.MOV);

@@ -2,6 +2,7 @@ package com.oop.project.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 
@@ -12,8 +13,8 @@ public class EnemyCharacter extends Entity {
     private Texture image;
 
 
-    public EnemyCharacter(int x, int y, GameMap map, String pathToPng, HashMap<Stats, Integer> unitStats) {
-        super(x, y, EntityType.ENEMY_UNIT, map);
+    public EnemyCharacter(int x, int y, GameMap map, Ranges range, String pathToPng, HashMap<Stats, Integer> unitStats) {
+        super(x, y, EntityType.ENEMY_UNIT, map, range);
         this.unitStats=unitStats;
         image = new Texture(pathToPng);
     }
