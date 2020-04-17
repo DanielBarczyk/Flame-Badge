@@ -8,17 +8,15 @@ import com.oop.project.entities.Entity;
 import com.oop.project.entities.PlayableCharacter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 public abstract class GameMap {
 
-    public ArrayList<PlayableCharacter> playableCharacters;
-    public ArrayList<EnemyCharacter> enemyCharacters;
+    private ArrayList<PlayableCharacter> playableCharacters;
+    private ArrayList<EnemyCharacter> enemyCharacters;
 
     public PlayableCharacter activeCharacter;
 
-    public GameMap(){
+    GameMap(){
         playableCharacters = new ArrayList<>();
         enemyCharacters = new ArrayList<>();
         playableCharacters.add(new PlayableCharacter(1,2,this,"testchar.png"));
@@ -36,7 +34,7 @@ public abstract class GameMap {
         }
     }
 
-    public void udpate(float delta){
+    public void update(float delta){
         for(Entity entity: playableCharacters){
             if(entity==activeCharacter)
             entity.update(delta);
@@ -52,15 +50,15 @@ public abstract class GameMap {
         return this.getTileTypeByCoordinate(layer,(int)x/TileType.TILE_SIZE,(int)y/TileType.TILE_SIZE);
     }
 
-    public boolean isTileOccupied(int x,int y){
+    public boolean isTileEmpty(int x,int y){
         Vector2 targetTile=new Vector2(x,y);
         for (Entity entity: playableCharacters){
-            if(entity.getPos().equals(targetTile)) return true;
+            if(entity.getPos().equals(targetTile)) return false;
         }
         for (Entity entity: enemyCharacters){
-            if(entity.getPos().equals(targetTile)) return true;
+            if(entity.getPos().equals(targetTile)) return false;
         }
-        return false;
+        return true;
     }
     public boolean isTileOccupiedByPlayable(int x,int y){
         Vector2 targetTile=new Vector2(x,y);

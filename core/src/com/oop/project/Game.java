@@ -4,19 +4,17 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.oop.project.entities.PlayableCharacter;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
 
 public class Game extends ApplicationAdapter {
-	SpriteBatch batch;
-	OrthographicCamera cam;
+	private SpriteBatch batch;
+	private OrthographicCamera cam;
 
-	GameMap gameMap;
+	private GameMap gameMap;
 
 	@Override
 	public void create () {
@@ -51,7 +49,7 @@ public class Game extends ApplicationAdapter {
 			}
 		}
 
-		gameMap.udpate(Gdx.graphics.getDeltaTime());
+		gameMap.update(Gdx.graphics.getDeltaTime());
 		gameMap.render(cam,batch);
 	}
 

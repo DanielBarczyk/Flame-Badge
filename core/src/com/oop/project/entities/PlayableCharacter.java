@@ -9,7 +9,7 @@ import com.oop.project.map.TileType;
 
 public class PlayableCharacter extends Entity {
 
-    Texture image;
+    private Texture image;
 
     private boolean hasacted;
 

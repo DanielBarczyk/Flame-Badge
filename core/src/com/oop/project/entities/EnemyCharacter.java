@@ -9,7 +9,7 @@ import com.oop.project.map.TileType;
 
 public class EnemyCharacter extends Entity {
 
-        Texture image;
+        private Texture image;
 
 
         public EnemyCharacter(int x, int y, GameMap map, String pathToPng) {

@@ -20,7 +20,7 @@ public enum TileType {
     private int id;
     private String name;
 
-    private TileType(int id, String name){
+    TileType(int id, String name){
         this.id=id;
         this.name=name;
     }

@@ -21,25 +21,25 @@ public abstract class Entity {
     }
 
     protected void moveUp(){//need to add actual map boundaries, getting them from the loaded map somehow
-        if(pos.y<4&&!map.isTileOccupied((int)pos.x,(int)pos.y+1)) {
+        if(pos.y<4&&map.isTileEmpty((int)pos.x,(int)pos.y+1)) {
             pos.y += 1;
         }
     }
 
     protected void moveDown(){
-        if(pos.y>0&&!map.isTileOccupied((int)pos.x,(int)pos.y-1)) {
+        if(pos.y>0&&map.isTileEmpty((int)pos.x,(int)pos.y-1)) {
             pos.y -= 1;
         }
     }
 
     protected void moveRight(){//need to add actual map boundaries, getting them from the loaded map somehow
-        if(pos.x<9&&!map.isTileOccupied((int)pos.x+1,(int)pos.y)) {
+        if(pos.x<9&&map.isTileEmpty((int)pos.x+1,(int)pos.y)) {
             pos.x += 1;
         }
     }
 
     protected void moveLeft(){
-        if(pos.x>0&&!map.isTileOccupied((int)pos.x-1,(int)pos.y)) {
+        if(pos.x>0&&map.isTileEmpty((int)pos.x-1,(int)pos.y)) {
             pos.x -= 1;
         }
     }

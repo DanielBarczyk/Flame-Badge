@@ -11,8 +11,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class TiledGameMap extends GameMap {
 
-    TiledMap tiledMap;
-    OrthogonalTiledMapRenderer tiledMapRenderer;
+    private TiledMap tiledMap;
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
     public TiledGameMap(){
         tiledMap=new TmxMapLoader().load("map2.tmx");
@@ -32,8 +32,8 @@ public class TiledGameMap extends GameMap {
     }
 
     @Override
-    public void udpate(float delta) {
-        super.udpate(delta);
+    public void update(float delta) {
+        super.update(delta);
     }
 
     @Override
