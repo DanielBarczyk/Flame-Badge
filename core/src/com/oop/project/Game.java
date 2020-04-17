@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.oop.project.entities.PlayableCharacter;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
@@ -38,17 +39,18 @@ public class Game extends ApplicationAdapter {
 			cam.translate(-Gdx.input.getDeltaX(),Gdx.input.getDeltaY());
 			cam.update();
 		}
-/*
-//provide info on the tile clicked
+
 		if(Gdx.input.justTouched()){
 			Vector3 pos=cam.unproject(new Vector3(Gdx.input.getX(),Gdx.input.getY(),0));
 			TileType type=gameMap.getTileTypeByLocation(0,pos.x,pos.y);
-
-			if(type!=null){
-				System.out.println(type.getId()+" "+type.getName());
+			if(type!=null){								//if we clicked in bounds
+				if(gameMap.isTileOccupiedByPlayable((int)(pos.x/TileType.TILE_SIZE),(int)(pos.y/TileType.TILE_SIZE))) {
+					gameMap.activeCharacter= gameMap.playableOnTile((int)(pos.x/TileType.TILE_SIZE),(int)(pos.y/TileType.TILE_SIZE));
+				}
+				//System.out.println(type.getId()+" "+type.getName());       //provide info on the tile clicked
 			}
 		}
-*/
+
 		gameMap.udpate(Gdx.graphics.getDeltaTime());
 		gameMap.render(cam,batch);
 	}

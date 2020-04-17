@@ -11,9 +11,12 @@ public class PlayableCharacter extends Entity {
 
     Texture image;
 
-    public PlayableCharacter(int x, int y, GameMap map) {
-        super(x, y, EntityType.CHARACTER, map);
-        image = new Texture("testchar.png");
+    private boolean hasacted;
+
+    public PlayableCharacter(int x, int y, GameMap map,String pathToPng) {
+        super(x, y, EntityType.PLAYER_UNIT, map);
+        image = new Texture(pathToPng);
+        hasacted=false;
     }
 
     @Override
@@ -23,12 +26,10 @@ public class PlayableCharacter extends Entity {
 
     @Override
     public void update(float delta) {
-        System.out.println("D");
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             super.moveUp();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            System.out.println("D");
             super.moveRight();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {

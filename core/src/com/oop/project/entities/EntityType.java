@@ -2,7 +2,8 @@ package com.oop.project.entities;
 
 public enum EntityType {
 
-    CHARACTER("playable_character",100,110);
+    PLAYER_UNIT("playable_character",100,110),
+    ENEMY_UNIT("enemy_character",100,110);
 
     private String id;
     private int width,height;
