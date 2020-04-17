@@ -87,12 +87,10 @@ public class PlayableCharacter extends Entity {
     }
 
     private boolean noEnemiesInRange(){
-        System.out.println("C");
         for (EnemyCharacter e:map.getEnemyCharacters()
         ) {
             if(Combat.canTheyFight(map.activeCharacter,e)) return false;
         }
-        System.out.println("D");
         return true;
     }
 

@@ -16,6 +16,7 @@ public class EnemyCharacter extends Entity {
     public EnemyCharacter(int x, int y, GameMap map, Ranges range, String pathToPng, HashMap<Stats, Integer> unitStats) {
         super(x, y, EntityType.ENEMY_UNIT, map, range);
         this.unitStats=unitStats;
+        currentHp=unitStats.get(Stats.HP);
         image = new Texture(pathToPng);
     }
 

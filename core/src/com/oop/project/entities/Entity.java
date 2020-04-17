@@ -86,6 +86,7 @@ public abstract class Entity {
 
 
     public void takeDamage(int damage) {
+        if(damage>0)
         currentHp -= damage;
     }
 
