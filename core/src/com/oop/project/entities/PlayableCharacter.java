@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oop.project.battles.Combat;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
@@ -42,34 +43,33 @@ public class PlayableCharacter extends Entity {
     @Override
     public void update(float delta) {
         if(active) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                if (super.moveUp()) {
-                    moveLeft--;
-                    if (moveLeft == 0)
-                        active = false;
+            if(moveLeft>0){
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                    if (super.moveUp()) {
+                        moveLeft--;
+                    }
+                }
+                if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                    if (super.moveRight()) {
+                        moveLeft--;
+                    }
+                }
+                if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+                    if (super.moveDown()) {
+                        moveLeft--;
+                    }
+                }
+                if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                    if (super.moveLeft()) {
+                        moveLeft--;
+                    }
                 }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-                if (super.moveRight()) {
-                    moveLeft--;
-                    if (moveLeft == 0)
-                        active = false;
-                }
+            else{
+                if(noEnemiesInRange()) active=false;
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-                if (super.moveDown()) {
-                    moveLeft--;
-                    if (moveLeft == 0)
-                        active = false;
-                }
-            }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-                if (super.moveLeft()) {
-                    moveLeft--;
-                    if (moveLeft == 0)
-                        active = false;
-                }
-            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+                active=false;
         }
     }
 
@@ -81,4 +81,19 @@ public class PlayableCharacter extends Entity {
         active=true;
         moveLeft=unitStats.get(Stats.MOV);
     }
+    public void makeInactive(){
+        active=false;
+        moveLeft=0;
+    }
+
+    private boolean noEnemiesInRange(){
+        System.out.println("C");
+        for (EnemyCharacter e:map.getEnemyCharacters()
+        ) {
+            if(Combat.canTheyFight(map.activeCharacter,e)) return false;
+        }
+        System.out.println("D");
+        return true;
+    }
+
 }

@@ -72,6 +72,7 @@ public abstract class GameMap {
         }
         return true;
     }
+
     public boolean isTileOccupiedByPlayable(int x,int y){
         Vector2 targetTile=new Vector2(x,y);
         for (Entity entity: playableCharacters){
@@ -79,6 +80,15 @@ public abstract class GameMap {
         }
         return false;
     }
+
+    public boolean isTileOccupiedByEnemy(int x,int y){
+        Vector2 targetTile=new Vector2(x,y);
+        for (Entity entity: enemyCharacters){
+            if(entity.getPos().equals(targetTile)) return true;
+        }
+        return false;
+    }
+
     public PlayableCharacter playableOnTile(int x,int y){
         Vector2 targetTile=new Vector2(x,y);
         for (PlayableCharacter entity: playableCharacters){
@@ -86,6 +96,7 @@ public abstract class GameMap {
         }
         return null;
     }
+
     public EnemyCharacter enemyOnTile(int x,int y){
         Vector2 targetTile=new Vector2(x,y);
         for (EnemyCharacter entity: enemyCharacters){
@@ -107,6 +118,17 @@ public abstract class GameMap {
             if(!entity.isActive()) entity.makeActive();
             activeCharacter=nextPlayableCharacter();
         }
+    }
+    public void kill(PlayableCharacter pc){
+        playableCharacters.remove(pc);
+    }
+
+    public void kill(EnemyCharacter ec){
+        enemyCharacters.remove(ec);
+    }
+
+    public ArrayList<EnemyCharacter> getEnemyCharacters(){
+        return enemyCharacters;
     }
 
     public abstract int getWidth();

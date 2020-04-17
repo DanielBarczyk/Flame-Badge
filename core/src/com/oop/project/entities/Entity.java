@@ -12,7 +12,7 @@ public abstract class Entity {
 
     Vector2 pos;
     private EntityType type;
-    private GameMap map;
+    GameMap map;
     HashMap<Stats,Integer> unitStats;
     HashMap<Stats,Integer> growths;
     int currentHp;
@@ -106,8 +106,6 @@ public abstract class Entity {
     }
 
     public int getDistance(Entity b){
-        if(pos.x!=b.pos.x)
-            return (int)Math.abs(b.pos.x-pos.x);
-        return (int)Math.abs(b.pos.y-pos.y);
+        return (int)Math.abs(b.pos.x-pos.x)+(int)Math.abs(b.pos.y-pos.y);
     }
 }

@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.oop.project.battles.Combat;
+import com.oop.project.entities.EnemyCharacter;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
@@ -41,9 +43,21 @@ public class Game extends ApplicationAdapter {
 		if(Gdx.input.justTouched()){
 			Vector3 pos=cam.unproject(new Vector3(Gdx.input.getX(),Gdx.input.getY(),0));
 			TileType type=gameMap.getTileTypeByLocation(0,pos.x,pos.y);
-			if(type!=null){								//if we clicked in bounds
-				if(gameMap.isTileOccupiedByPlayable((int)(pos.x/TileType.TILE_SIZE),(int)(pos.y/TileType.TILE_SIZE))) {
-					gameMap.activeCharacter= gameMap.playableOnTile((int)(pos.x/TileType.TILE_SIZE),(int)(pos.y/TileType.TILE_SIZE));
+			if(type!=null){ //if we clicked in bounds
+				int tileX=(int)(pos.x/TileType.TILE_SIZE);
+				int tileY=(int)(pos.y/TileType.TILE_SIZE);
+				if(gameMap.isTileOccupiedByPlayable(tileX,tileY)) {
+					gameMap.activeCharacter= gameMap.playableOnTile(tileX,tileY);
+				}
+				if(gameMap.isTileOccupiedByEnemy(tileX,tileY)){
+					EnemyCharacter enemyCharacter=gameMap.enemyOnTile(tileX,tileY);
+
+					if(Combat.canTheyFight(gameMap.activeCharacter,enemyCharacter)){
+						Combat.battle(gameMap.activeCharacter,enemyCharacter);
+						if(gameMap.activeCharacter.getCurrentHp()<0) gameMap.kill(gameMap.activeCharacter);
+						if(enemyCharacter.getCurrentHp()<0) gameMap.kill(enemyCharacter);
+						gameMap.activeCharacter.makeInactive();
+					}
 				}
 				//System.out.println(type.getId()+" "+type.getName());       //provide info on the tile clicked
 			}

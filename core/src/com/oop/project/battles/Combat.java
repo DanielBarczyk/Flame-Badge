@@ -1,13 +1,11 @@
 package com.oop.project.battles;
 
-import com.oop.project.entities.EnemyCharacter;
-import com.oop.project.entities.Entity;
-import com.oop.project.entities.PlayableCharacter;
-import com.oop.project.entities.Stats;
+import com.oop.project.entities.*;
+import com.oop.project.map.GameMap;
 
 public class Combat {
 
-    private void battlePlayerLead(PlayableCharacter pc, EnemyCharacter ec){
+    public static void battle(Entity pc, Entity ec){
         boolean canCounter=canCounter(pc,ec);
         ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.DEF));
         if(ec.getCurrentHp()>0&&canCounter)
@@ -18,19 +16,7 @@ public class Combat {
             pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
     }
 
-
-    private void battlePlayerLead(EnemyCharacter ec,PlayableCharacter pc){
-        boolean canCounter=canCounter(pc,ec);
-        pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
-        if(pc.getCurrentHp()>0&&canCounter)
-            ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.DEF));
-        if(ec.getCurrentHp()>0&&ec.getUnitStats().get(Stats.SPD)>=pc.getUnitStats().get(Stats.SPD))
-            pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
-        if(pc.getCurrentHp()>0&&pc.getUnitStats().get(Stats.SPD)>=ec.getUnitStats().get(Stats.SPD))
-            ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.DEF));
-    }
-
-    private boolean canCounter(Entity a, Entity b){
+    private static boolean canCounter(Entity a, Entity b){
         if(a.getRange()==b.getRange()) return true;
         if(b.getRange()==Ranges.MAGIC) return true;
         if(a.getRange()==Ranges.MAGIC){
@@ -41,4 +27,11 @@ public class Combat {
         }
         return false;
     }
+    public static boolean canTheyFight(Entity a, Entity b){
+        int distance=a.getDistance(b);
+        if(a.getRange()==Ranges.MELEE&&distance==1) return true;
+        if(a.getRange()==Ranges.BOWS&&distance==2) return true;
+        return (a.getRange()==Ranges.MAGIC&&(distance==1||distance==2));
+    }
+
 }
