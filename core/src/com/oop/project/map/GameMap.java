@@ -25,8 +25,8 @@ public abstract class GameMap {
     }
 
     private void addPlayableCharacters(){
-        playableCharacters.add(new PlayableCharacter(1,2,this,"testchar.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
-        playableCharacters.add(new PlayableCharacter(0,3,this,"testchar2.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(1,2,this,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(0,3,this,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
     }
 
     private void addEnemyCharacters(){
@@ -44,9 +44,11 @@ public abstract class GameMap {
     }
 
     public void update(float delta){
-        for(Entity entity: playableCharacters){
-            if(entity==activeCharacter)
-            entity.update(delta);
+        activeCharacter.update(delta);
+        if(!activeCharacter.isActive()){
+            activeCharacter=nextPlayableCharacter();
+            if(activeCharacter==null)
+                endTurn();
         }
     }
 
@@ -89,6 +91,21 @@ public abstract class GameMap {
             if(entity.getPos().equals(targetTile)) return entity;
         }
         return null;
+    }
+
+    private PlayableCharacter nextPlayableCharacter(){
+        for(PlayableCharacter entity: playableCharacters){
+            if(entity.isActive()) return entity;
+        }
+        return null;
+    }
+
+    private void endTurn(){
+        //enemyPhase() <-AI actions once implemented
+        for(PlayableCharacter entity: playableCharacters){
+            if(!entity.isActive()) entity.makeActive();
+            activeCharacter=nextPlayableCharacter();
+        }
     }
 
     public abstract int getWidth();

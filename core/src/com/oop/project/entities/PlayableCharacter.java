@@ -7,43 +7,78 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 
-import java.util.ArrayList;
+import java.awt.*;
 import java.util.HashMap;
 
 public class PlayableCharacter extends Entity {
 
+    private Texture actedImage;
+    private boolean active;
+    private int moveLeft;
+    private int currentHp;
 
-    private boolean hasacted;
-
-    public PlayableCharacter(int x, int y, GameMap map,String pathToPng,HashMap<Stats, Integer> unitStats,HashMap<Stats, Integer> growths) {
+    public PlayableCharacter(int x, int y, GameMap map,String pathToPng,String pathToActedImage,HashMap<Stats, Integer> unitStats,HashMap<Stats, Integer> growths) {
         super(x, y, EntityType.PLAYER_UNIT, map);
         this.unitStats=unitStats;
         this.growths=growths;
+        moveLeft=unitStats.get(Stats.MOV);
+        currentHp=unitStats.get(Stats.HP);
         image = new Texture(pathToPng);
-        hasacted=false;
+        actedImage = new Texture(pathToActedImage);
+        active=true;
     }
 
 
 
     @Override
     public void render(SpriteBatch batch) {
+        if(active)
         batch.draw(image,pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
+        else
+        batch.draw(actedImage,pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE);
     }
 
 
     @Override
     public void update(float delta) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            super.moveUp();
+        if(active) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                if (super.moveUp()) {
+                    moveLeft--;
+                    if (moveLeft == 0)
+                        active = false;
+                }
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                if (super.moveRight()) {
+                    moveLeft--;
+                    if (moveLeft == 0)
+                        active = false;
+                }
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+                if (super.moveDown()) {
+                    moveLeft--;
+                    if (moveLeft == 0)
+                        active = false;
+                }
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                if (super.moveLeft()) {
+                    moveLeft--;
+                    if (moveLeft == 0)
+                        active = false;
+                }
+            }
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            super.moveRight();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            super.moveDown();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            super.moveLeft();
-        }
+    }
+
+    public boolean isActive(){
+        return active;
+    }
+
+    public void makeActive(){
+        active=true;
+        moveLeft=unitStats.get(Stats.MOV);
     }
 }

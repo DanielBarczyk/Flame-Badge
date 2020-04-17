@@ -26,28 +26,36 @@ public abstract class Entity {
 
     }
 
-    void moveUp(){//need to add actual map boundaries, getting them from the loaded map somehow
+    boolean moveUp(){//need to add actual map boundaries, getting them from the loaded map somehow
         if(pos.y<4&&map.isTileEmpty((int)pos.x,(int)pos.y+1)) {
             pos.y += 1;
+            return true;
         }
+        return false;
     }
 
-    void moveDown(){
+    boolean moveDown(){
         if(pos.y>0&&map.isTileEmpty((int)pos.x,(int)pos.y-1)) {
             pos.y -= 1;
+            return true;
         }
+        return false;
     }
 
-    void moveRight(){//need to add actual map boundaries, getting them from the loaded map somehow
+    boolean moveRight(){//need to add actual map boundaries, getting them from the loaded map somehow
         if(pos.x<9&&map.isTileEmpty((int)pos.x+1,(int)pos.y)) {
             pos.x += 1;
+            return true;
         }
+        return false;
     }
 
-    void moveLeft(){
+    boolean moveLeft(){
         if(pos.x>0&&map.isTileEmpty((int)pos.x-1,(int)pos.y)) {
             pos.x -= 1;
+            return true;
         }
+        return false;
     }
 
     public abstract void render(SpriteBatch batch);
