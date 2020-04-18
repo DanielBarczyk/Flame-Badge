@@ -30,11 +30,13 @@ public abstract class GameMap {
     private void addPlayableCharacters(){
         playableCharacters.add(new PlayableCharacter(1,2,this, Ranges.MELEE,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
         playableCharacters.add(new PlayableCharacter(0,3,this, Ranges.BOWS,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(0,1,this, Ranges.MAGIC,"testmage.png","testmageacted.png",PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
     }
 
     private void addEnemyCharacters(){
-        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,6,4,2,1,1,0,3,0)));
-        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,7,4,2,1,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,6,4,2,3,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,7,4,2,3,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(9,3,this, Ranges.MAGIC, "testenemymage.png",EnemyCharacter.setStats(10,7,5,3,1,1,0,1,0)));
     }
 
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){
@@ -125,9 +127,9 @@ public abstract class GameMap {
             e.printStackTrace();
         }
         for(PlayableCharacter entity: playableCharacters){
-            if(!entity.isActive()) entity.makeActive();
-            activeCharacter=nextPlayableCharacter();
+            entity.makeActive();
         }
+        activeCharacter=nextPlayableCharacter();
     }
 
     private void enemyPhase(){
@@ -158,8 +160,8 @@ public abstract class GameMap {
     public ArrayList<EnemyCharacter> getEnemyCharacters(){
         return enemyCharacters;
     }
-    void moveEnemy(EnemyCharacter enemyCharacter){
-        System.out.println("D");
+
+    private void moveEnemy(EnemyCharacter enemyCharacter){
         PlayableCharacter target=null;
         for (PlayableCharacter p:playableCharacters
              ) {

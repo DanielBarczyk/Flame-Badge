@@ -7,13 +7,38 @@ public class Combat {
 
     public static void battle(Entity pc, Entity ec){
         boolean canCounter=canCounter(pc,ec);
+        if(pc.getRange().isMagic()){
+            magicAttack(pc,ec);
+        }
+        else
+            meleeAttack(pc,ec);
+        if(ec.getCurrentHp()>0&&canCounter){
+            if(ec.getRange().isMagic())
+                magicAttack(ec,pc);
+            else
+                meleeAttack(pc,ec);
+        }
+        if(pc.getCurrentHp()>0&&pc.getUnitStats().get(Stats.SPD)>=ec.getUnitStats().get(Stats.SPD)){
+            if(pc.getRange().isMagic()){
+                magicAttack(pc,ec);
+            }
+            else
+                meleeAttack(pc,ec);
+        }
+        if(ec.getCurrentHp()>0&&ec.getUnitStats().get(Stats.SPD)>=pc.getUnitStats().get(Stats.SPD)&&canCounter){
+            if(ec.getRange().isMagic())
+                magicAttack(ec,pc);
+            else
+                meleeAttack(pc,ec);
+        }
+    }
+
+    private static void meleeAttack(Entity pc,Entity ec){
         ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.DEF));
-        if(ec.getCurrentHp()>0&&canCounter)
-            pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
-        if(pc.getCurrentHp()>0&&pc.getUnitStats().get(Stats.SPD)>=ec.getUnitStats().get(Stats.SPD))
-            ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.DEF));
-        if(ec.getCurrentHp()>0&&ec.getUnitStats().get(Stats.SPD)>=pc.getUnitStats().get(Stats.SPD)&&canCounter)
-            pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
+    }
+
+    private static void magicAttack(Entity pc, Entity ec){
+        ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.RES));
     }
 
     private static boolean canCounter(Entity a, Entity b){
