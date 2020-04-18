@@ -7,8 +7,8 @@ import com.oop.project.Game;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height=500;
-		config.width=1000;
+		config.height=640;
+		config.width=1280;
 		new LwjglApplication(new Game(), config);
 	}
 }

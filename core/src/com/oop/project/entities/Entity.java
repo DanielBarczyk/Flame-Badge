@@ -118,13 +118,13 @@ public abstract class Entity {
 
     public void moveTowards(Entity b){
         while(getDistance(b)>range.getMax()){
-            if(pos.x>b.pos.x) {
+            if(pos.x>b.pos.x&&map.isTileEmpty((int)pos.x-1,(int)pos.y)) {
                 moveLeft();
-            } else if(pos.x<b.pos.x){
+            } else if(pos.x<b.pos.x&&map.isTileEmpty((int)pos.x+1,(int)pos.y)){
                 moveRight();
-            } else if(pos.y>b.pos.y){
+            } else if(pos.y>b.pos.y&&map.isTileEmpty((int)pos.x,(int)pos.y-1)){
                 moveDown();
-            } else if(pos.y<b.pos.y){
+            } else if(pos.y<b.pos.y&&map.isTileEmpty((int)pos.x,(int)pos.y+1)){
                 moveUp();
             }
         }
