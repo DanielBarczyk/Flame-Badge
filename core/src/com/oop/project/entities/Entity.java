@@ -30,7 +30,7 @@ public abstract class Entity {
 
     }
 
-    boolean moveUp(){//need to add actual map boundaries, getting them from the loaded map somehow
+    public boolean moveUp(){//need to add actual map boundaries, getting them from the loaded map somehow
         if(pos.y<4&&map.isTileEmpty((int)pos.x,(int)pos.y+1)) {
             pos.y += 1;
             return true;
@@ -38,7 +38,7 @@ public abstract class Entity {
         return false;
     }
 
-    boolean moveDown(){
+    public boolean moveDown(){
         if(pos.y>0&&map.isTileEmpty((int)pos.x,(int)pos.y-1)) {
             pos.y -= 1;
             return true;
@@ -46,7 +46,7 @@ public abstract class Entity {
         return false;
     }
 
-    boolean moveRight(){//need to add actual map boundaries, getting them from the loaded map somehow
+    public boolean moveRight(){//need to add actual map boundaries, getting them from the loaded map somehow
         if(pos.x<9&&map.isTileEmpty((int)pos.x+1,(int)pos.y)) {
             pos.x += 1;
             return true;
@@ -54,7 +54,7 @@ public abstract class Entity {
         return false;
     }
 
-    boolean moveLeft(){
+    public boolean moveLeft(){
         if(pos.x>0&&map.isTileEmpty((int)pos.x-1,(int)pos.y)) {
             pos.x -= 1;
             return true;
@@ -86,8 +86,10 @@ public abstract class Entity {
 
 
     public void takeDamage(int damage) {
+        System.out.println(currentHp+ " "+damage);
         if(damage>0)
         currentHp -= damage;
+
     }
 
     public int getCurrentHp(){
@@ -106,7 +108,25 @@ public abstract class Entity {
         return type;
     }
 
+    public int getMove(){
+        return unitStats.get(Stats.MOV);
+    }
+
     public int getDistance(Entity b){
         return (int)Math.abs(b.pos.x-pos.x)+(int)Math.abs(b.pos.y-pos.y);
+    }
+
+    public void moveTowards(Entity b){
+        while(getDistance(b)>range.getMax()){
+            if(pos.x>b.pos.x) {
+                moveLeft();
+            } else if(pos.x<b.pos.x){
+                moveRight();
+            } else if(pos.y>b.pos.y){
+                moveDown();
+            } else if(pos.y>b.pos.y){
+                moveUp();
+            }
+        }
     }
 }

@@ -12,13 +12,16 @@ public class Combat {
             pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
         if(pc.getCurrentHp()>0&&pc.getUnitStats().get(Stats.SPD)>=ec.getUnitStats().get(Stats.SPD))
             ec.takeDamage(pc.getUnitStats().get(Stats.ATK)-ec.getUnitStats().get(Stats.DEF));
-        if(ec.getCurrentHp()>0&&ec.getUnitStats().get(Stats.SPD)>=pc.getUnitStats().get(Stats.SPD))
+        if(ec.getCurrentHp()>0&&ec.getUnitStats().get(Stats.SPD)>=pc.getUnitStats().get(Stats.SPD)&&canCounter)
             pc.takeDamage(ec.getUnitStats().get(Stats.ATK)-pc.getUnitStats().get(Stats.DEF));
     }
 
     private static boolean canCounter(Entity a, Entity b){
+        System.out.println("C");
         if(a.getRange()==b.getRange()) return true;
+        System.out.println("C");
         if(b.getRange()==Ranges.MAGIC) return true;
+        System.out.println("C");
         if(a.getRange()==Ranges.MAGIC){
             if(a.getDistance(b)==1&&b.getRange()==Ranges.MELEE){
                 return true;

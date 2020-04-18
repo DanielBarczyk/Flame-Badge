@@ -3,12 +3,14 @@ package com.oop.project.map;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.oop.project.battles.Combat;
 import com.oop.project.battles.Ranges;
 import com.oop.project.entities.EnemyCharacter;
 import com.oop.project.entities.Entity;
 import com.oop.project.entities.PlayableCharacter;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public abstract class GameMap {
 
@@ -31,8 +33,8 @@ public abstract class GameMap {
     }
 
     private void addEnemyCharacters(){
-        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,3,4,2,1,1,0,3,0)));
-        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,3,4,2,1,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,6,4,2,1,1,0,3,0)));
+        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,7,4,2,1,1,0,3,0)));
     }
 
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){
@@ -45,11 +47,13 @@ public abstract class GameMap {
     }
 
     public void update(float delta){
-        activeCharacter.update(delta);
-        if(!activeCharacter.isActive()){
-            activeCharacter=nextPlayableCharacter();
-            if(activeCharacter==null)
-                endTurn();
+        if(activeCharacter!=null) {
+            activeCharacter.update(delta);
+            if (!activeCharacter.isActive()) {
+                activeCharacter = nextPlayableCharacter();
+                //if(activeCharacter==null)
+                //endTurn();
+            }
         }
     }
 
@@ -112,13 +116,37 @@ public abstract class GameMap {
         return null;
     }
 
-    private void endTurn(){
-        //enemyPhase() <-AI actions once implemented
+
+    public void endTurn(){
+        enemyPhase();
+        try{
+            TimeUnit.MILLISECONDS.sleep(700);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         for(PlayableCharacter entity: playableCharacters){
             if(!entity.isActive()) entity.makeActive();
             activeCharacter=nextPlayableCharacter();
         }
     }
+
+    private void enemyPhase(){
+        ArrayList<EnemyCharacter> hasDied=new ArrayList<>();
+        for(EnemyCharacter enemy:enemyCharacters){
+            moveEnemy(enemy);
+            if(enemy.getCurrentHp()<=0)
+                hasDied.add(enemy);
+            try{
+                TimeUnit.MILLISECONDS.sleep(700);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        for(EnemyCharacter enemy:hasDied){
+            enemyCharacters.remove(enemy);
+        }
+    }
+
     public void kill(PlayableCharacter pc){
         playableCharacters.remove(pc);
     }
@@ -130,8 +158,22 @@ public abstract class GameMap {
     public ArrayList<EnemyCharacter> getEnemyCharacters(){
         return enemyCharacters;
     }
-
-    public abstract int getWidth();
-    public abstract int getHeight();
-    public abstract int getLayers();
+    void moveEnemy(EnemyCharacter enemyCharacter){
+        System.out.println("D");
+        PlayableCharacter target=null;
+        for (PlayableCharacter p:playableCharacters
+             ) {
+            if(enemyCharacter.getDistance(p)<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
+                target=p;
+                enemyCharacter.moveTowards(p);
+                Combat.battle(enemyCharacter,p);
+                break;
+            }
+        }
+        if(target!=null) {
+            if (target.getCurrentHp() <= 0) {
+                playableCharacters.remove(target);
+            }
+        }
+    }
 }

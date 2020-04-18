@@ -2,6 +2,7 @@ package com.oop.project;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,7 +35,14 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-//drag map around
+		mouseInput();
+		endInput();
+		gameMap.update(Gdx.graphics.getDeltaTime());
+		gameMap.render(cam,batch);
+	}
+
+	public void mouseInput(){
+		//drag map around
 		if(Gdx.input.isTouched()){
 			cam.translate(-Gdx.input.getDeltaX(),Gdx.input.getDeltaY());
 			cam.update();
@@ -54,17 +62,20 @@ public class Game extends ApplicationAdapter {
 
 					if(Combat.canTheyFight(gameMap.activeCharacter,enemyCharacter)){
 						Combat.battle(gameMap.activeCharacter,enemyCharacter);
-						if(gameMap.activeCharacter.getCurrentHp()<0) gameMap.kill(gameMap.activeCharacter);
-						if(enemyCharacter.getCurrentHp()<0) gameMap.kill(enemyCharacter);
+						if(gameMap.activeCharacter.getCurrentHp()<=0) gameMap.kill(gameMap.activeCharacter);
+						if(enemyCharacter.getCurrentHp()<=0) gameMap.kill(enemyCharacter);
 						gameMap.activeCharacter.makeInactive();
 					}
 				}
 				//System.out.println(type.getId()+" "+type.getName());       //provide info on the tile clicked
 			}
 		}
+	}
 
-		gameMap.update(Gdx.graphics.getDeltaTime());
-		gameMap.render(cam,batch);
+	public void endInput() {
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+			gameMap.endTurn();
+		}
 	}
 
 	@Override
