@@ -31,6 +31,14 @@ public class Combat {
             else
                 meleeAttack(pc,ec);
         }
+        if(pc.getType()==EntityType.PLAYER_UNIT){
+            PlayableCharacter p=(PlayableCharacter)pc;
+            p.gainExp(ec);
+        }
+        if(ec.getType()==EntityType.PLAYER_UNIT){
+            PlayableCharacter p=(PlayableCharacter)ec;
+            p.gainExp(pc);
+        }
     }
 
     private static void meleeAttack(Entity pc,Entity ec){
@@ -62,5 +70,4 @@ public class Combat {
         if(a.getRange()==Ranges.BOWS&&distance==2) return true;
         return (a.getRange()==Ranges.MAGIC&&(distance==1||distance==2));
     }
-
 }

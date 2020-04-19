@@ -94,4 +94,34 @@ public class PlayableCharacter extends Entity {
         return true;
     }
 
+    private void levelUp(){
+        System.out.println("Level Up; Gained:");
+        for(int i=0;i<Stats.values().length;i++){
+            if(growths.get(Stats.values()[i])>(int)(Math.random()*100)){
+                updateStat(Stats.values()[i],1);
+                System.out.println(1+" "+Stats.values()[i]);
+            }
+        }
+    }
+
+    public void gainExp(Entity enemy){
+        int value=31-unitStats.get(Stats.LVL);
+        if(enemy.getCurrentHp()<0){
+            value+=20+(Math.max(0,enemy.getUnitStats().get(Stats.LVL)-unitStats.get(Stats.LVL))*5);
+        }
+        Integer currentExp=unitStats.get(Stats.EXP);
+        unitStats.remove(Stats.EXP);
+        currentExp+=value;
+        if(currentExp>=100){
+            levelUp();
+            currentExp-=100;
+        }
+        unitStats.put(Stats.EXP,currentExp);
+    }
+    private void updateStat(Stats stat,int value){
+        Integer a=unitStats.get(stat);
+        unitStats.remove(stat);
+        a+=value;
+        unitStats.put(stat,a);
+    }
 }

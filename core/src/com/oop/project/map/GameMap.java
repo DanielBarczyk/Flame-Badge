@@ -18,7 +18,7 @@ public abstract class GameMap {
 
     public PlayableCharacter activeCharacter;
 
-    public GameMap() {
+    GameMap() {
         playableCharacters = new ArrayList<>();
         enemyCharacters = new ArrayList<>();
         addPlayableCharacters();
@@ -27,15 +27,15 @@ public abstract class GameMap {
     }
 
     private void addPlayableCharacters(){
-        playableCharacters.add(new PlayableCharacter(1,2,this, Ranges.MELEE,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
-        playableCharacters.add(new PlayableCharacter(0,3,this, Ranges.BOWS,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
-        playableCharacters.add(new PlayableCharacter(0,1,this, Ranges.MAGIC,"testmage.png","testmageacted.png",PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80),PlayableCharacter.setStats(100,100,100,100,100,100,100,0,0)));
+        playableCharacters.add(new PlayableCharacter(1,2,this, Ranges.MELEE,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0)));
+        playableCharacters.add(new PlayableCharacter(0,3,this, Ranges.BOWS,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0)));
+        playableCharacters.add(new PlayableCharacter(0,1,this, Ranges.MAGIC,"testmage.png","testmageacted.png",PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0)));
     }
 
     private void addEnemyCharacters(){
-        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,6,4,2,3,1,0,3,0)));
-        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,7,4,2,3,1,0,3,0)));
-        enemyCharacters.add(new EnemyCharacter(9,3,this, Ranges.MAGIC, "testenemymage.png",EnemyCharacter.setStats(10,7,5,3,1,1,0,1,0)));
+        enemyCharacters.add(new EnemyCharacter(7,3,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(8,6,4,2,3,1,0,3,0,1)));
+        enemyCharacters.add(new EnemyCharacter(6,2,this, Ranges.MELEE, "testenemy.png",EnemyCharacter.setStats(9,7,4,2,3,1,0,3,0,1)));
+        enemyCharacters.add(new EnemyCharacter(9,3,this, Ranges.MAGIC, "testenemymage.png",EnemyCharacter.setStats(10,7,5,3,1,1,0,1,0,1)));
     }
 
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){
@@ -137,11 +137,6 @@ public abstract class GameMap {
             moveEnemy(enemy);
             if(enemy.getCurrentHp()<=0)
                 hasDied.add(enemy);
-            try{
-                TimeUnit.MILLISECONDS.sleep(700);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
         }
         for(EnemyCharacter enemy:hasDied){
             enemyCharacters.remove(enemy);

@@ -12,7 +12,8 @@ public enum Stats {
     DEF("def"),
     RES("res"),
     MOV("mov"),
-    EXP("exp");
+    EXP("exp"),
+    LVL("lvl");
 
     private String id;
 
