@@ -129,4 +129,10 @@ public abstract class Entity {
             }
         }
     }
+
+    public void printStats(){
+        for(int i=0;i<Stats.values().length;i++){
+            System.out.println(Stats.values()[i]+": "+unitStats.get(Stats.values()[i]));
+        }
+    }
 }

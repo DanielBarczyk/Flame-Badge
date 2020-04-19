@@ -46,21 +46,30 @@ public class FightScreen implements Screen {
             TileType type = game.gameMap.getTileTypeByLocation(0,pos.x,pos.y);
 
             if(type != null) { //if we clicked in bounds
-                int tileX = (int)(pos.x / TileType.TILE_SIZE);
-                int tileY = (int)(pos.y / TileType.TILE_SIZE);
-                if(game.gameMap.isTileOccupiedByPlayable(tileX,tileY)) {
-                    game.gameMap.activeCharacter = game.gameMap.playableOnTile(tileX,tileY);
-                }
-                if(game.gameMap.isTileOccupiedByEnemy(tileX,tileY)){
-                    EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX,tileY);
+                int tileX = (int) (pos.x / TileType.TILE_SIZE);
+                int tileY = (int) (pos.y / TileType.TILE_SIZE);
+                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
+                        game.gameMap.playableOnTile(tileX, tileY).printStats();
+                    }
+                    if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
+                        game.gameMap.enemyOnTile(tileX, tileY).printStats();
+                    }
+                } else {
+                    if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
+                        game.gameMap.activeCharacter = game.gameMap.playableOnTile(tileX, tileY);
+                    }
+                    if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
+                        EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX, tileY);
 
-                    if(Combat.canTheyFight(game.gameMap.activeCharacter,enemyCharacter)){
-                        Combat.battle(game.gameMap.activeCharacter,enemyCharacter);
-                        if(game.gameMap.activeCharacter.getCurrentHp() <= 0)
-                            game.gameMap.kill(game.gameMap.activeCharacter);
-                        if(enemyCharacter.getCurrentHp() <= 0)
-                            game.gameMap.kill(enemyCharacter);
-                        game.gameMap.activeCharacter.makeInactive();
+                        if (Combat.canTheyFight(game.gameMap.activeCharacter, enemyCharacter)) {
+                            Combat.battle(game.gameMap.activeCharacter, enemyCharacter);
+                            if (game.gameMap.activeCharacter.getCurrentHp() <= 0)
+                                game.gameMap.kill(game.gameMap.activeCharacter);
+                            if (enemyCharacter.getCurrentHp() <= 0)
+                                game.gameMap.kill(enemyCharacter);
+                            game.gameMap.activeCharacter.makeInactive();
+                        }
                     }
                 }
                 //System.out.println(type.getId()+" "+type.getName());       //provide info on the tile clicked

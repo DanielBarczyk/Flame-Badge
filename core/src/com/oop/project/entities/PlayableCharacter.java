@@ -102,6 +102,7 @@ public class PlayableCharacter extends Entity {
                 System.out.println(1+" "+Stats.values()[i]);
             }
         }
+        updateStat(Stats.LVL,1);
     }
 
     public void gainExp(Entity enemy){
