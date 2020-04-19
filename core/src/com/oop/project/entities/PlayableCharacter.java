@@ -109,6 +109,7 @@ public class PlayableCharacter extends Entity {
         if(enemy.getCurrentHp()<0){
             value+=20+(Math.max(0,enemy.getUnitStats().get(Stats.LVL)-unitStats.get(Stats.LVL))*5);
         }
+        value=Math.min(value,99);
         Integer currentExp=unitStats.get(Stats.EXP);
         unitStats.remove(Stats.EXP);
         currentExp+=value;
