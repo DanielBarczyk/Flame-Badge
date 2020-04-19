@@ -37,6 +37,7 @@ public class FlameBadge extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		gameMap.dispose();
+		if(gameMap != null)
+			gameMap.dispose();
 	}
 }

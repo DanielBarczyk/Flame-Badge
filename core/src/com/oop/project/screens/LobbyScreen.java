@@ -31,6 +31,7 @@ public class LobbyScreen implements Screen {
         fightButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                dispose();
                 game.setScreen(new FightScreen(game));
             }
         });
@@ -43,7 +44,8 @@ public class LobbyScreen implements Screen {
         partyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new PartyScreen(game));
+                //dispose();
+                //game.setScreen(new PartyScreen(game));
             }
         });
         stage.addActor(partyButton);
@@ -55,6 +57,7 @@ public class LobbyScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                dispose();
                 game.setScreen(new MainMenuScreen(game));
             }
         });
