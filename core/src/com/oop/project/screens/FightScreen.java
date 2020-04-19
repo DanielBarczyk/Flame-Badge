@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.oop.project.FlameBadge;
 import com.oop.project.battles.Combat;
 import com.oop.project.entities.EnemyCharacter;
@@ -13,13 +15,18 @@ import com.oop.project.map.TiledGameMap;
 
 public class FightScreen implements Screen {
     FlameBadge game;
+    private final Stage stage;
+    private final Skin skin;
     public FightScreen(FlameBadge game) {
         this.game = game;
+        this.stage = new Stage();
+        this.skin=Skins.defaultSkin();
     }
 
     @Override
     public void show() {
         game.gameMap = new TiledGameMap();
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -31,6 +38,8 @@ public class FightScreen implements Screen {
         endInput();
         game.gameMap.update(Gdx.graphics.getDeltaTime());
         game.gameMap.render(game.cam, game.batch);
+        stage.act();
+        stage.draw();
     }
 
 
@@ -51,6 +60,7 @@ public class FightScreen implements Screen {
                 if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
                     if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
                         game.gameMap.playableOnTile(tileX, tileY).printStats();
+                        game.gameMap.playableOnTile(tileX, tileY).printStatsButton(stage,skin);
                     }
                     if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
                         game.gameMap.enemyOnTile(tileX, tileY).printStats();

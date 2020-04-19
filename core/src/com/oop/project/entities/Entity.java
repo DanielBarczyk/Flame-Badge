@@ -1,10 +1,17 @@
 package com.oop.project.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
+import com.oop.project.screens.FightScreen;
 
 import java.util.HashMap;
 
@@ -134,5 +141,26 @@ public abstract class Entity {
         for(int i=0;i<Stats.values().length;i++){
             System.out.println(Stats.values()[i]+": "+unitStats.get(Stats.values()[i]));
         }
+    }
+
+    public String statsString(){
+        String result="";
+        for(int i=0;i<Stats.values().length;i++){
+            result=result.concat(Stats.values()[i]+": "+unitStats.get(Stats.values()[i])+"\n");
+        }
+        return result;
+    }
+
+    public void printStatsButton(Stage stage, Skin skin){
+        final TextButton statsButton = new TextButton(statsString(), skin);
+        statsButton.setPosition((float) Gdx.graphics.getWidth()/2 - statsButton.getWidth()/2,
+                (float)Gdx.graphics.getHeight()/2 + statsButton.getHeight()/2 + 10);
+        stage.addActor(statsButton);
+        statsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                statsButton.remove();
+            }
+        });
     }
 }
