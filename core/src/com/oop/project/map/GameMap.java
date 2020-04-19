@@ -13,18 +13,17 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public abstract class GameMap {
-
     private ArrayList<PlayableCharacter> playableCharacters;
     private ArrayList<EnemyCharacter> enemyCharacters;
 
     public PlayableCharacter activeCharacter;
 
-    GameMap(){
+    public GameMap() {
         playableCharacters = new ArrayList<>();
         enemyCharacters = new ArrayList<>();
         addPlayableCharacters();
         addEnemyCharacters();
-        activeCharacter=playableCharacters.get(0);
+        activeCharacter = playableCharacters.get(0);
     }
 
     private void addPlayableCharacters(){
