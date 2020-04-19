@@ -64,6 +64,7 @@ public class FightScreen implements Screen {
                     }
                     if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
                         game.gameMap.enemyOnTile(tileX, tileY).printStats();
+                        game.gameMap.enemyOnTile(tileX, tileY).printStatsButton(stage,skin);
                     }
                 } else {
                     if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
