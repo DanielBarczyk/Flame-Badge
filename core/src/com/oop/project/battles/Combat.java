@@ -56,6 +56,7 @@ public class Combat {
         return false;
     }
     public static boolean canTheyFight(Entity a, Entity b){
+        if(a==null||b==null) return false;
         int distance=a.getDistance(b);
         if(a.getRange()==Ranges.MELEE&&distance==1) return true;
         if(a.getRange()==Ranges.BOWS&&distance==2) return true;
