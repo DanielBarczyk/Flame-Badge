@@ -12,7 +12,7 @@ public class Combat {
         }
         else
             meleeAttack(pc,ec);
-        if(ec.getCurrentHp()>0&&canCounter){
+        if(ec.getCurrentHp()>0&&canCounter&&ec.getCurrentHp()>0){
             if(ec.getRange().isMagic())
                 magicAttack(ec,pc);
             else
