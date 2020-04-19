@@ -4,20 +4,24 @@ import com.oop.project.map.TileType;
 
 public enum Stats {
 
-    HP("hp"),
-    ATK("atk"),
-    SPD("spd"),
-    SKILL("skill"),
-    LUCK("luck"),
-    DEF("def"),
-    RES("res"),
-    MOV("mov"),
-    EXP("exp"),
-    LVL("lvl");
+    MAXHP("Hp"),
+    ATK("Atk"),
+    SPD("Spd"),
+    SKILL("Skill"),
+    LUCK("Luck"),
+    DEF("Def"),
+    RES("Res"),
+    MOV("Mov"),
+    EXP("Exp"),
+    LVL("Lvl");
 
     private String id;
 
     Stats(String id) {
         this.id = id;
+    }
+
+    String getId(){
+        return id;
     }
 }

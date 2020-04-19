@@ -139,15 +139,16 @@ public abstract class Entity {
 
     public void printStats(){
         for(int i=0;i<Stats.values().length;i++){
-            System.out.println(Stats.values()[i]+": "+unitStats.get(Stats.values()[i]));
+            System.out.println(Stats.values()[i].getId()+": "+unitStats.get(Stats.values()[i]));
         }
     }
 
     public String statsString(){
-        String result="";
+        String result="Current hp: "+currentHp+"\n";
         for(int i=0;i<Stats.values().length;i++){
-            result=result.concat(Stats.values()[i]+": "+unitStats.get(Stats.values()[i])+"\n");
+            result=result.concat(Stats.values()[i].getId()+": "+unitStats.get(Stats.values()[i])+"\n");
         }
+        result=result.substring(0,result.length()-1);
         return result;
     }
 

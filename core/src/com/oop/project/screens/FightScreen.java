@@ -41,7 +41,7 @@ public class FightScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         mouseInput();
-        endInput();
+        enterInput();
         game.gameMap.update(Gdx.graphics.getDeltaTime());
         game.gameMap.render(game.cam, game.batch);
         stage.act();
@@ -94,7 +94,7 @@ public class FightScreen implements Screen {
         }
     }
 
-    public void endInput() {
+    public void enterInput() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             game.gameMap.endTurn();
         }

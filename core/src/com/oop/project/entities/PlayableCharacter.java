@@ -23,7 +23,7 @@ public class PlayableCharacter extends Entity {
         this.unitStats=unitStats;
         this.growths=growths;
         moveLeft=unitStats.get(Stats.MOV);
-        currentHp=unitStats.get(Stats.HP);
+        currentHp=unitStats.get(Stats.MAXHP);
         image = new Texture(pathToPng);
         actedImage = new Texture(pathToActedImage);
         active=true;
