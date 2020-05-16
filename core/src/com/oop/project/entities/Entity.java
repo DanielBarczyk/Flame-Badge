@@ -177,8 +177,15 @@ public abstract class Entity {
 
     public void printStatsButton(Stage stage, Skin skin){
         final TextButton statsButton = new TextButton(statsString(), skin);
-        statsButton.setPosition((float) Gdx.graphics.getWidth()/2 - statsButton.getWidth()/2,
+        if(this instanceof PlayableCharacter){
+            statsButton.setPosition((float) Gdx.graphics.getWidth()/3 - statsButton.getWidth()/2,
                 (float)Gdx.graphics.getHeight()/2 + statsButton.getHeight()/2 + 10);
+        }
+        else{
+            statsButton.setPosition(2*(float) Gdx.graphics.getWidth()/3 - statsButton.getWidth()/2,
+                    (float)Gdx.graphics.getHeight()/2 + statsButton.getHeight()/2 + 10);
+        }
+
         stage.addActor(statsButton);
         statsButton.addListener(new ClickListener() {
             @Override

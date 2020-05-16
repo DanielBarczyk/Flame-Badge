@@ -73,6 +73,13 @@ public class FightScreen implements Screen {
                         game.gameMap.enemyOnTile(tileX, tileY).printStats();
                         game.gameMap.enemyOnTile(tileX, tileY).printStatsButton(stage,skin);
                     }
+                } else if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
+                    if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
+                        EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX, tileY);
+                        if (Combat.canTheyFight(game.gameMap.activeCharacter, enemyCharacter)) {
+                            Combat.showCombatPrediction(game.gameMap.activeCharacter,enemyCharacter,stage,skin);
+                        }
+                    }
                 } else {
                     if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
                         Weapon.cleanInventoryButtons(game.gameMap.activeCharacter);
@@ -91,7 +98,6 @@ public class FightScreen implements Screen {
                         }
                     }
                 }
-                //System.out.println(type.getId()+" "+type.getName());       //provide info on the tile clicked
             }
         }
     }
