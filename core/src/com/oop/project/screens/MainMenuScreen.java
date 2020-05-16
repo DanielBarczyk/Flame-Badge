@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
 
+import static com.oop.project.entities.Entity.printStatsExplanationButton;
+
 public class MainMenuScreen implements Screen {
     private final FlameBadge game;
     private final Stage stage;
@@ -78,6 +80,18 @@ public class MainMenuScreen implements Screen {
             }
         });
         stage.addActor(exitButton);
+
+        //Create a button for information about stats
+        TextButton statsInfoButton = new TextButton("Stats Explained", skin);
+        statsInfoButton.setPosition(3*(float)Gdx.graphics.getWidth()/4 - statsInfoButton.getWidth()/4,
+               3*(float)Gdx.graphics.getHeight()/4 - statsInfoButton.getHeight());
+        statsInfoButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                printStatsExplanationButton(stage, skin);
+            }
+        });
+        stage.addActor(statsInfoButton);
     }
 
     @Override

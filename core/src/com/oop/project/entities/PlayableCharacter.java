@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Combat;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
@@ -18,7 +19,7 @@ public class PlayableCharacter extends Entity {
     private boolean active;
     private int moveLeft;
 
-    public PlayableCharacter(int x, int y, GameMap map, Ranges range, String pathToPng, String pathToActedImage, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
+    private PlayableCharacter(int x, int y, GameMap map, Ranges range, String pathToPng, String pathToActedImage, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
         super(x, y, EntityType.PLAYER_UNIT, map,range);
         this.unitStats=unitStats;
         this.growths=growths;
@@ -125,5 +126,29 @@ public class PlayableCharacter extends Entity {
         unitStats.remove(stat);
         a+=value;
         unitStats.put(stat,a);
+    }
+
+    public static PlayableCharacter makeSwordLord(GameMap map){
+        PlayableCharacter swordLord=new PlayableCharacter(1,2,map, Ranges.MELEE,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0));
+        swordLord.addItem(new Weapon("Iron Sword",200,3,70,0));
+        swordLord.addItem(new Weapon("Rapier",400,3,70,10));
+        swordLord.currentlyEquipped=(Weapon)swordLord.getInventory().get(0);
+        return swordLord;
+    }
+
+    public static PlayableCharacter makeArcher(GameMap map){
+        PlayableCharacter archer= new PlayableCharacter(0,3,map, Ranges.BOWS,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0));
+        archer.addItem(new Weapon("Iron Bow",200,3,70,0));
+        archer.addItem(new Weapon("Killer Bow",200,5,50,30));
+        archer.currentlyEquipped=(Weapon)archer.getInventory().get(0);
+        return archer;
+    }
+
+    public static PlayableCharacter makeMage(GameMap map){
+        PlayableCharacter mage=new PlayableCharacter(0,1,map, Ranges.MAGIC,"testmage.png","testmageacted.png",PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0));
+        mage.addItem(new Weapon("Fire",200,4,70,0));
+        mage.addItem(new Weapon("Thunder",200,5,70,15));
+        mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
+        return mage;
     }
 }

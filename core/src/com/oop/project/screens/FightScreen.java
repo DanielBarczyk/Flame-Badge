@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.oop.project.Equipment.Weapon;
 import com.oop.project.FlameBadge;
 import com.oop.project.battles.Combat;
 import com.oop.project.entities.EnemyCharacter;
@@ -14,10 +15,10 @@ import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
 
 public class FightScreen implements Screen {
-    FlameBadge game;
+    private FlameBadge game;
     private final Stage stage;
     private final Skin skin;
-    public FightScreen(FlameBadge game) {
+    FightScreen(FlameBadge game) {
         this.game = game;
         this.stage = new Stage();
         this.skin=Skins.defaultSkin();
@@ -41,7 +42,7 @@ public class FightScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         mouseInput();
-        enterInput();
+        keyboardInput();
         game.gameMap.update(Gdx.graphics.getDeltaTime());
         game.gameMap.render(game.cam, game.batch);
         stage.act();
@@ -49,7 +50,7 @@ public class FightScreen implements Screen {
     }
 
 
-    public void mouseInput(){
+    private void mouseInput(){
         //drag map around
         if(Gdx.input.isTouched()) {
             game.cam.translate(-Gdx.input.getDeltaX(),Gdx.input.getDeltaY());
@@ -74,6 +75,7 @@ public class FightScreen implements Screen {
                     }
                 } else {
                     if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
+                        Weapon.cleanInventoryButtons(game.gameMap.activeCharacter);
                         game.gameMap.activeCharacter = game.gameMap.playableOnTile(tileX, tileY);
                     }
                     if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
@@ -94,9 +96,13 @@ public class FightScreen implements Screen {
         }
     }
 
-    public void enterInput() {
+    private void keyboardInput(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             game.gameMap.endTurn();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.I)){
+            Weapon.showItems(stage, skin, game.gameMap.activeCharacter);
         }
     }
 

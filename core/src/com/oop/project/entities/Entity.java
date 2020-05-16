@@ -6,13 +6,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.oop.project.Equipment.Item;
+import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.screens.FightScreen;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Entity {
@@ -22,15 +26,21 @@ public abstract class Entity {
     GameMap map;
     HashMap<Stats,Integer> unitStats;
     HashMap<Stats,Integer> growths;
+    private ArrayList<Item> inventory;
     int currentHp;
     Texture image;
     private Ranges range;
+    Weapon currentlyEquipped;
+
+    private ArrayList<Button> inventoryButtons;
 
     Entity(int x,int y, EntityType type, GameMap map,Ranges range) {
         this.pos = new Vector2(x,y);
         this.type = type;
         this.map = map;
         this.range=range;
+        inventory=new ArrayList<>();
+        inventoryButtons=new ArrayList<>();
     }
 
     public void update(float delta){
@@ -83,7 +93,7 @@ public abstract class Entity {
         return type.getHeight();
     }
 
-    public static HashMap<Stats,Integer> setStats(int... bases){
+    static HashMap<Stats,Integer> setStats(int... bases){
         HashMap<Stats,Integer> hashMap=new HashMap<>();
         for(int i=0;i<Stats.values().length;i++){
             hashMap.put(Stats.values()[i],bases[i]);
@@ -143,13 +153,26 @@ public abstract class Entity {
         }
     }
 
-    public String statsString(){
+    private String statsString(){
         String result="Current hp: "+currentHp+"\n";
         for(int i=0;i<Stats.values().length;i++){
             result=result.concat(Stats.values()[i].getId()+": "+unitStats.get(Stats.values()[i])+"\n");
         }
         result=result.substring(0,result.length()-1);
         return result;
+    }
+
+    private static String statsExplanationString(){
+        return "HP: If it goes below or equal to zero, the unit dies\n"
+                + "ATK: How much damage an unit deals without a weapon\n" +
+                "SPD: How fast an unit is - if faster than enemy, unit attacks twice during combat\n" +
+                "SKILL: How accurate an unit is - a point of skill is equal to 2% extra hit chance \n" +
+                "LUCK: Improves the unit's chance to crit, as well as crit avoid\n" +
+                "DEF: Defense against physical attacks - reduces damage taken from melee enemies\n"+
+                "RES: Resistance against magical attacks - reduces damage taken from magical enemies\n" +
+                "MOV: How far an unit can move in a single turn\n" +
+                "EXP: How close the unit is to levelling up\n"+
+                "LVL: The unit's level - determines how much exp the unit gets from battle";
     }
 
     public void printStatsButton(Stage stage, Skin skin){
@@ -163,5 +186,38 @@ public abstract class Entity {
                 statsButton.remove();
             }
         });
+    }
+
+    public static void printStatsExplanationButton(Stage stage, Skin skin){
+        final TextButton statsButton = new TextButton(statsExplanationString(), skin);
+        statsButton.setPosition((float)Gdx.graphics.getWidth()/2 - statsButton.getWidth()/2,
+                3*(float)Gdx.graphics.getHeight()/4 - statsButton.getHeight()-20);
+        stage.addActor(statsButton);
+        statsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                statsButton.remove();
+            }
+        });
+    }
+
+    public ArrayList<Item> getInventory(){
+        return inventory;
+    }
+
+    public ArrayList<Button> getInventoryButtons(){
+        return inventoryButtons;
+    }
+
+    void addItem(Item item){
+        inventory.add(item);
+    }
+
+    public Weapon getCurrentlyEquipped(){
+        return currentlyEquipped;
+    }
+
+    public void setCurrentlyEquipped(Weapon w) {
+        currentlyEquipped=w;
     }
 }
