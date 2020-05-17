@@ -34,7 +34,12 @@ public abstract class Entity {
 
     private ArrayList<Button> inventoryButtons;
 
-    public Entity() {}
+    public Entity() {
+        unitStats = new HashMap<>();
+        growths = new HashMap<>();
+        inventory = new ArrayList<>();
+        currentlyEquipped = new Weapon();
+    }
 
     public Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
         this.longname = longname;
@@ -116,14 +121,26 @@ public abstract class Entity {
     }
 
     public static HashMap<Stats,Integer> setStats(String... bases){
-        HashMap<Stats,Integer> hashMap=new HashMap<>();
+        HashMap<Stats,Integer> hashMap = new HashMap<>();
         for(int i=0;i<Stats.values().length;i++){
             hashMap.put(Stats.values()[i], Integer.parseInt(bases[i]));
         }
         return hashMap;
     }
 
+    public void fixStats() {
+        HashMap<Stats,Integer> hashMap = new HashMap<>();
+        for(int i=0; i<Stats.values().length; i++) {
+            hashMap.put(Stats.values()[i], this.unitStats.get(Stats.values()[i].toString()));
+        }
+        this.unitStats = hashMap;
 
+        HashMap<Stats,Integer> hashMap2 = new HashMap<>();
+        for(int i=0; i<Stats.values().length; i++) {
+            hashMap2.put(Stats.values()[i], this.growths.get(Stats.values()[i].toString()));
+        }
+        this.growths = hashMap2;
+    }
 
 
     public void takeDamage(int damage) {

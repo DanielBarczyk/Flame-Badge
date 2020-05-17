@@ -17,6 +17,8 @@ public enum Stats {
 
     private String id;
 
+    Stats() {}
+
     Stats(String id) {
         this.id = id;
     }

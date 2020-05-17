@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
+import com.oop.project.lobby.GameData;
+import com.oop.project.lobby.SaveGame;
 
 public class LobbyScreen implements Screen {
     private final FlameBadge game;
@@ -57,8 +59,9 @@ public class LobbyScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dispose();
                 game.currentGame.saveGame();
+                SaveGame.getSaveGames().put(game.currentGame.toString(), game.currentGame);
+                dispose();
                 game.setScreen(new MainMenuScreen(game));
             }
         });

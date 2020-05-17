@@ -20,7 +20,9 @@ public class PlayableCharacter extends Entity {
     private boolean active;
     private int moveLeft;
 
-    public PlayableCharacter() {}
+    public PlayableCharacter() {
+        super();
+    }
 
     private PlayableCharacter(String longname, String shortname, int x, int y, GameMap map, Ranges range, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
         super(longname, shortname, x, y, EntityType.PLAYER_UNIT, map,range);

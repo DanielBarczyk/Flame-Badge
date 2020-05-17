@@ -14,6 +14,8 @@ public class Weapon extends Item {
     private int hit;
     private int crit;
 
+    public Weapon(){}
+
     public Weapon(String name, int cost, int attack, int hit,int crit){
         this.name=name;
         this.cost=cost;

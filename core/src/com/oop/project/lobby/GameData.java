@@ -15,36 +15,29 @@ public class GameData {
     private String saveName;
     private Party party;
 
-    private static HashMap<String, GameData> saveGames;
-    static {
-        saveGames = new HashMap<>();
+    public GameData() {
+        party = new Party();
     }
 
-    public GameData() {}
-
     public GameData(String saveName) {
-        if(saveGames.containsKey(saveName))
+        if(SaveGame.exists(saveName))
             throw new RuntimeException();
-
         this.saveName = saveName;
-        this.party = new Party(saveName);
-        saveGames.put(saveName, this);
+        this.party = new Party();
     }
 
     public static GameData loadGame(String name) {
-        if(!saveGames.containsKey(name))
+        if(!SaveGame.exists(name))
             throw new RuntimeException();
+        System.out.println("Loading saves/"+name+".json");
         FileHandle fileHandle = Gdx.files.local("saves/"+name+".json");
-        return json.fromJson(GameData.class, Base64Coder.decodeString(fileHandle.readString()));
+        return json.fromJson(GameData.class, fileHandle.readString());
     }
 
     public void saveGame() {
+        party.getSelected().clear();
         FileHandle fileHandle = Gdx.files.local("saves/"+saveName+".json");
-        fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(this)), false);
-    }
-
-    public static Collection<GameData> getSaves() {
-        return saveGames.values();
+        fileHandle.writeString(json.toJson(this), false);
     }
 
     public Party getParty() {

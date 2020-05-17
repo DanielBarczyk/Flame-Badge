@@ -9,7 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
+import com.oop.project.entities.PlayableCharacter;
 import com.oop.project.lobby.GameData;
+import com.oop.project.lobby.SaveGame;
 
 public class LoadGameScreen implements Screen {
     private final FlameBadge game;
@@ -26,7 +28,7 @@ public class LoadGameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         int offset = 100;
-        for(final GameData save : GameData.getSaves()) {
+        for(final GameData save : SaveGame.getSaves()) {
             // Create a button starting a new game
             final TextButton saveButton = new TextButton(save.toString(), skin);
             saveButton.setPosition((float)Gdx.graphics.getWidth()/2 - saveButton.getWidth()/2,
@@ -35,6 +37,9 @@ public class LoadGameScreen implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     game.currentGame = GameData.loadGame(save.toString());
+                    for(PlayableCharacter character : game.currentGame.getParty().getCharacters()) {
+                        character.fixStats();
+                    }
                     dispose();
                     game.setScreen(new LobbyScreen(game));
                 }
