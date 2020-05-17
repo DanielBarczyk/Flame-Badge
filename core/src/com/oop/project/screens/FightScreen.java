@@ -1,5 +1,6 @@
 package com.oop.project.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -11,6 +12,7 @@ import com.oop.project.Equipment.Weapon;
 import com.oop.project.FlameBadge;
 import com.oop.project.battles.Combat;
 import com.oop.project.entities.EnemyCharacter;
+import com.oop.project.lobby.GameData;
 import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
 
@@ -32,7 +34,6 @@ public class FightScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -98,13 +99,11 @@ public class FightScreen implements Screen {
     }
 
     private void keyboardInput(){
-
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             dispose();
             game.setScreen(new LobbyScreen(game));
             return;
         }
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             game.gameMap.endTurn();
         }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.oop.project.FlameBadge;
 import com.oop.project.entities.PlayableCharacter;
 import com.oop.project.entities.Stats;
+import com.oop.project.lobby.Party;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,6 @@ public class PartyScreen implements Screen {
     private final FlameBadge game;
     private final Stage stage;
     private final Skin skin;
-    private ArrayList<PlayableCharacter> selectedCharacters;
     private final BitmapFont font;
     private PlayableCharacter currentSelect;
 
@@ -35,7 +35,6 @@ public class PartyScreen implements Screen {
         this.game = game;
         this.stage = new Stage();
         this.skin = Skins.defaultSkin();
-        this.selectedCharacters = new ArrayList<>();
         this.font = new BitmapFont();
         this.currentSelect = game.currentGame.getParty().getCharacters().get(0);
     }
@@ -64,7 +63,7 @@ public class PartyScreen implements Screen {
         // For every available character, create a portrait in the menu
         for(final PlayableCharacter character : game.currentGame.getParty().getCharacters()) {
             final ImageButton image = new ImageButton(new TextureRegionDrawable(new Texture(character.getShortname()+"/portrait.png")));
-            image.setColor(0, 0, 0, 0.6f);
+
             image.setPosition(nextX+8,nextY+8);
             nextX += PORTRAIT_RESOLUTION;
             if(nextX >= PORTRAIT_RESOLUTION * PORTRAIT_WIDTH) {
@@ -73,18 +72,27 @@ public class PartyScreen implements Screen {
             }
             image.addListener(new ClickListener() {
                 private boolean clicked = false;
-                private PlayableCharacter owner = character;
+                private final PlayableCharacter owner = character;
+
+                {
+                    if(game.currentGame.getParty().getSelected().contains(character)) {
+                        image.setColor(0, 0, 0, 1f);
+                        clicked = true;
+                    }
+                    else
+                        image.setColor(0, 0, 0, 0.6f);
+                }
 
                 // On clicking a portrait, select it if it's not nad vice versa
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if(!clicked) {
                         image.setColor(0, 0, 0, 1); // Set transparency to 0
-                        selectedCharacters.add(owner);
+                        game.currentGame.getParty().getSelected().add(owner);
                         clicked = true;
                     } else {
-                        image.setColor(0, 0, 0, 0.7f); // Set transparency to 0.7
-                        selectedCharacters.remove(owner);
+                        image.setColor(0, 0, 0, 0.6f); // Set transparency to 0.7
+                        game.currentGame.getParty().getSelected().remove(owner);
                         clicked = false;
                     }
                 }

@@ -22,6 +22,7 @@ public class Party {
 
     public Party(String saveName) {
         this.characters = new ArrayList<>();
+        this.selected = new ArrayList<>();
         createDefaultCharacters();
     }
 
