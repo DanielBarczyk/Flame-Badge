@@ -39,8 +39,20 @@ public class LoadGameScreen implements Screen {
                     game.setScreen(new LobbyScreen(game));
                 }
             });
+            offset += saveButton.getHeight() + 10;
             stage.addActor(saveButton);
         }
+        final TextButton backButton = new TextButton("Back to menu", skin);
+        backButton.setPosition((float)Gdx.graphics.getWidth()/2 - backButton.getWidth()/2,
+                (float)Gdx.graphics.getHeight() - offset);
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+        stage.addActor(backButton);
     }
 
     @Override

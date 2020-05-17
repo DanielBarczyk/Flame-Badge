@@ -64,7 +64,7 @@ public class PartyScreen implements Screen {
 
         // For every available character, create a portrait in the menu
         for(final PlayableCharacter character : game.currentGame.getParty().getCharacters()) {
-            final ImageButton image = new ImageButton(new TextureRegionDrawable(character.getPortrait()));
+            final ImageButton image = new ImageButton(new TextureRegionDrawable(new Texture(character.getShortname()+"/portrait.png")));
             image.setColor(0, 0, 0, 0.6f);
             image.setPosition(nextX+8,nextY+8);
             nextX += PORTRAIT_RESOLUTION;
