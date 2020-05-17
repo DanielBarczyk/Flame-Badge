@@ -32,6 +32,11 @@ public class Party {
         characters.add(PlayableCharacter.makeMage());
     }
 
+    public void selectDefaultCharacters(){
+        for(PlayableCharacter pc: characters)
+            selected.add(pc);
+    }
+
     public void createCharacter() {
         String longname;
         String shortname;

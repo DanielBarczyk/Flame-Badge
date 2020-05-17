@@ -2,12 +2,14 @@ package com.oop.project.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class EnemyCharacter extends Entity {
 
@@ -53,6 +55,67 @@ public class EnemyCharacter extends Entity {
         this.pos.y=y;
         this.map=map;
         return this;
+    }
+
+    public int[][] bfs(){
+        int[][] result=new int[map.getMapMaxX()+1][map.getMapMaxY()+1];
+        int maxvalue=getMove()+getRange().getMax()+1;
+        for(int[] array:result){
+            Arrays.fill(array,maxvalue);
+        }
+        result[(int)pos.x][(int)pos.y]=0;
+        ArrayBlockingQueue<Vector2> queue=new ArrayBlockingQueue<Vector2>((map.getMapMaxX()+1)*(map.getMapMaxY()+1)+1);
+        queue.add(pos);
+        while(!queue.isEmpty()){
+            Vector2 pole=queue.remove();
+            int current_distance=result[(int)pole.x][(int)pole.y];
+            if(current_distance<getMove()+getRange().getMax()){
+                if(current_distance<getMove()){
+                    if(pole.x<map.getMapMaxX()&&(map.isTileEmpty((int)pole.x+1,(int)pole.y)||map.isTileOccupiedByPlayable((int)pole.x+1,(int)pole.y))&&map.isTileTraversible((int)pole.x+1,(int)pole.y)&&result[(int)pole.x+1][(int)pole.y]==maxvalue){
+                        result[(int)pole.x+1][(int)pole.y]=current_distance+1;
+                        queue.add(new Vector2(pole.x+1,pole.y));
+                    }
+
+                    if(pole.x>0&&(map.isTileEmpty((int)pole.x-1,(int)pole.y)||map.isTileOccupiedByPlayable((int)pole.x-1,(int)pole.y))&&map.isTileTraversible((int)pole.x-1,(int)pole.y)&&result[(int)pole.x-1][(int)pole.y]==maxvalue){
+                        result[(int)pole.x-1][(int)pole.y]=current_distance+1;
+                        queue.add(new Vector2(pole.x-1,pole.y));
+                    }
+
+                    if(pole.y<map.getMapMaxY()&&(map.isTileEmpty((int)pole.x,(int)pole.y+1)||map.isTileOccupiedByPlayable((int)pole.x,(int)pole.y+1))&&map.isTileTraversible((int)pole.x,(int)pole.y+1)&&result[(int)pole.x][(int)pole.y+1]==maxvalue){
+                        result[(int)pole.x][(int)pole.y+1]=current_distance+1;
+                        queue.add(new Vector2(pole.x,pole.y+1));
+                    }
+
+                    if(pole.y>0&&(map.isTileEmpty((int)pole.x,(int)pole.y-1)||map.isTileOccupiedByPlayable((int)pole.x,(int)pole.y-1))&&map.isTileTraversible((int)pole.x,(int)pole.y-1)&&result[(int)pole.x][(int)pole.y-1]==maxvalue){
+                        result[(int)pole.x][(int)pole.y-1]=current_distance+1;
+                        queue.add(new Vector2(pole.x,pole.y-1));
+                    }
+                }
+                else{
+                    if(pole.x<map.getMapMaxX()&&result[(int)pole.x+1][(int)pole.y]==maxvalue){
+                        result[(int)pole.x+1][(int)pole.y]=current_distance+1;
+                        queue.add(new Vector2(pole.x+1,pole.y));
+                    }
+
+                    if(pole.x>0&&result[(int)pole.x-1][(int)pole.y]==maxvalue){
+                        result[(int)pole.x-1][(int)pole.y]=current_distance+1;
+                        queue.add(new Vector2(pole.x-1,pole.y));
+                    }
+
+                    if(pole.y<map.getMapMaxY()&&result[(int)pole.x][(int)pole.y+1]==maxvalue){
+                        result[(int)pole.x][(int)pole.y+1]=current_distance+1;
+                        queue.add(new Vector2(pole.x,pole.y+1));
+                    }
+
+                    if(pole.y>0&&result[(int)pole.x][(int)pole.y-1]==maxvalue){
+                        result[(int)pole.x][(int)pole.y-1]=current_distance+1;
+                        queue.add(new Vector2(pole.x,pole.y-1));
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }
 

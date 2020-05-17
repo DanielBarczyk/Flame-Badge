@@ -161,18 +161,74 @@ public abstract class Entity {
 
     public String getLongname() {return this.longname;}
 
-    public void moveTowards(Entity b){
-        while(getDistance(b)>range.getMax()){
-            if(pos.x>b.pos.x&&map.isTileEmpty((int)pos.x-1,(int)pos.y)) {
-                moveLeft();
-            } else if(pos.x<b.pos.x&&map.isTileEmpty((int)pos.x+1,(int)pos.y)){
-                moveRight();
-            } else if(pos.y>b.pos.y&&map.isTileEmpty((int)pos.x,(int)pos.y-1)){
-                moveDown();
-            } else if(pos.y<b.pos.y&&map.isTileEmpty((int)pos.x,(int)pos.y+1)){
-                moveUp();
+    public void moveTowards(int[][] bfsResult,Entity b){
+        System.out.println("moveTowards "+ b.getPos().x+" "+b.getPos().y);
+        if(getRange().getMax()==2){
+            if(isTileAvailable(b.getPos().x+2,b.getPos().y,bfsResult)){
+                pos.x=b.getPos().x+2;
+                pos.y=b.getPos().y;
+            } else if(isTileAvailable(b.getPos().x+1,b.getPos().y+1,bfsResult)){
+                pos.x=b.getPos().x+1;
+                pos.y=b.getPos().y+1;
+            } else if(isTileAvailable(b.getPos().x,b.getPos().y+2,bfsResult)){
+                pos.x=b.getPos().x;
+                pos.y=b.getPos().y+2;
+            } else if(isTileAvailable(b.getPos().x-1,b.getPos().y+1,bfsResult)){
+                pos.x=b.getPos().x-1;
+                pos.y=b.getPos().y+1;
+            }else if(isTileAvailable(b.getPos().x-2,b.getPos().y,bfsResult)){
+                pos.x=b.getPos().x-2;
+                pos.y=b.getPos().y;
+            } else if(isTileAvailable(b.getPos().x-1,b.getPos().y-1,bfsResult)){
+                pos.x=b.getPos().x-1;
+                pos.y=b.getPos().y-1;
+            } else if(isTileAvailable(b.getPos().x,b.getPos().y-2,bfsResult)){
+                pos.x=b.getPos().x;
+                pos.y=b.getPos().y-2;
+            } else if(isTileAvailable(b.getPos().x+1,b.getPos().y-1,bfsResult)){
+                pos.x=b.getPos().x+1;
+                pos.y=b.getPos().y-1;
             }
         }
+        if(getRange().getMin()==1){
+            if(isTileAvailable(b.getPos().x+1,b.getPos().y,bfsResult)){
+                pos.x=b.getPos().x+1;
+                pos.y=b.getPos().y;
+            } else if(isTileAvailable(b.getPos().x-1,b.getPos().y,bfsResult)){
+                pos.x=b.getPos().x-1;
+                pos.y=b.getPos().y;
+            } else if(isTileAvailable(b.getPos().x,b.getPos().y+1,bfsResult)){
+                pos.x=b.getPos().x;
+                pos.y=b.getPos().y+1;
+            } else if(isTileAvailable(b.getPos().x,b.getPos().y-1,bfsResult)){
+                pos.x=b.getPos().x;
+                pos.y=b.getPos().y-1;
+            }
+        }
+        /*
+        while(getDistance(b)>range.getMax()){
+            if(pos.x>b.pos.x&&map.isTileEmpty((int)pos.x-1,(int)pos.y)&&map.isTileTraversible((int)pos.x-1,(int)pos.y)) {
+                moveLeft();
+            } else if(pos.x<b.pos.x&&map.isTileEmpty((int)pos.x+1,(int)pos.y)&&map.isTileTraversible((int)pos.x+1,(int)pos.y)){
+                moveRight();
+            } else if(pos.y>b.pos.y&&map.isTileEmpty((int)pos.x,(int)pos.y-1)&&map.isTileTraversible((int)pos.x,(int)pos.y+1)){
+                moveDown();
+            } else if(pos.y<b.pos.y&&map.isTileEmpty((int)pos.x,(int)pos.y+1)&&map.isTileTraversible((int)pos.x,(int)pos.y-1)){
+                moveUp();
+            }
+        }*/
+    }
+
+    boolean isTileAvailable(float x, float y, int[][] bfsResult){
+        System.out.println(x+" "+y);
+        System.out.println(x<map.getMapMaxX());
+        System.out.println(x>=0);
+        System.out.println(y<map.getMapMaxY());
+        System.out.println(y>=0);
+        System.out.println(map.isTileEmpty((int)x,(int)y));
+        System.out.println(map.isTileTraversible((int)x,(int)y));
+        System.out.println(bfsResult[(int)x][(int)y]<=getMove());
+        return (x<map.getMapMaxX()&&x>=0&&y<map.getMapMaxY()&&y>=0&&map.isTileEmpty((int)x,(int)y)&&map.isTileTraversible((int)x,(int)y)&&bfsResult[(int)x][(int)y]<=getMove());
     }
 
     public void printStats(){

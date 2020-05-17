@@ -28,12 +28,9 @@ public abstract class GameMap {
     }
 
     void addPlayableCharactersMap1(){
-        if(game==null)
-            System.out.println("game=null");
         if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
-            defaultSelection();
-        else
-            loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap1Positions());
+            game.currentGame.getParty().selectDefaultCharacters();
+        loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap1Positions());
     }
 
     void addEnemyCharactersMap1(){
@@ -59,6 +56,22 @@ public abstract class GameMap {
         result.add(new Position(1,2,this));
         result.add(new Position(0,3,this));
         result.add(new Position(0,0,this));
+        return result;
+    }
+
+    void addPlayableCharactersMap2(){
+        System.out.println(game.currentGame.getParty().getSelected().size());
+        if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
+            game.currentGame.getParty().selectDefaultCharacters();
+        System.out.println(game.currentGame.getParty().getSelected().size());
+        loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap2Positions());
+    }
+
+    private ArrayList<Position> getMap2Positions(){
+        ArrayList<Position> result=new ArrayList<>();
+        result.add(new Position(2,3,this));
+        result.add(new Position(3,2,this));
+        result.add(new Position(1,1,this));
         return result;
     }
 
@@ -185,11 +198,19 @@ public abstract class GameMap {
 
     private void moveEnemy(EnemyCharacter enemyCharacter){
         PlayableCharacter target=null;
+        int[][] bfsResult= enemyCharacter.bfs();
+        for(int i=0;i<bfsResult.length;i++){
+            for(int j=0;j<bfsResult[i].length;j++){
+                System.out.print(bfsResult[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
         for (PlayableCharacter p:playableCharacters
              ) {
-            if(enemyCharacter.getDistance(p)<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
+            if(bfsResult[(int)p.getPos().x][(int)p.getPos().y]<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
                 target=p;
-                enemyCharacter.moveTowards(p);
+                enemyCharacter.moveTowards(bfsResult,p);
                 Combat.battle(enemyCharacter,p);
                 break;
             }

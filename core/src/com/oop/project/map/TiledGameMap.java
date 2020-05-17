@@ -18,10 +18,8 @@ public class TiledGameMap extends GameMap {
 
     public TiledGameMap(FlameBadge game){
         this.game=game;
-        loadmap1();
+        loadmap2();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        addPlayableCharactersMap1();
-        addEnemyCharactersMap1();
         activeCharacter = playableCharacters.get(0);
     }
 
@@ -29,12 +27,16 @@ public class TiledGameMap extends GameMap {
         tiledMap=new TmxMapLoader().load("map1.tmx");
         mapMaxX=9;
         mapMaxY=4;
+        addPlayableCharactersMap1();
+        addEnemyCharactersMap1();
     }
 
     private void loadmap2(){
         tiledMap=new TmxMapLoader().load("map2.tmx");
         mapMaxX=14;
         mapMaxY=9;
+        addPlayableCharactersMap2();
+        addEnemyCharactersMap1();
     }
 
 
