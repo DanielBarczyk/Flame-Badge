@@ -58,6 +58,7 @@ public class LobbyScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
+                game.currentGame.saveGame();
                 game.setScreen(new MainMenuScreen(game));
             }
         });
@@ -66,7 +67,7 @@ public class LobbyScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();

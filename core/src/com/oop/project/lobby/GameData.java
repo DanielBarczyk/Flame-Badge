@@ -41,11 +41,16 @@ public class GameData {
         fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(this)), false);
     }
 
-    public Collection<GameData> getSaves() {
+    public static Collection<GameData> getSaves() {
         return saveGames.values();
     }
 
     public Party getParty() {
         return party;
+    }
+
+    @Override
+    public String toString() {
+        return saveName;
     }
 }

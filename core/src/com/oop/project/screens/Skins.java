@@ -24,8 +24,8 @@ public class Skins {
 
         TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
         textFieldStyle.font = skin.getFont("default");
-        textFieldStyle.fontColor = Color.BLACK;
-        textFieldStyle.focusedFontColor = Color.RED;
+        textFieldStyle.fontColor = Color.LIGHT_GRAY;
+        textFieldStyle.focusedFontColor = Color.WHITE;
         skin.add("default", textFieldStyle);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
