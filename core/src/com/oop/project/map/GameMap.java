@@ -40,9 +40,16 @@ public abstract class GameMap {
     }
 
     void addEnemyCharactersMap2(){
-        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(7,2,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(7,4,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(10,2,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(8,4,this));
         enemyCharacters.add(EnemyCharacter.makeMage().setPos(9,3,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos( 10,8,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(10,6,this));
+        enemyCharacters.add(EnemyCharacter.makeMage().setPos(3,6,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(3,4,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(4, 4,this));
+        enemyCharacters.add(EnemyCharacter.makeMage().setPos(12,3,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(2,8,this));
     }
 
     private void loadPlayableCharacters(ArrayList<PlayableCharacter> lista,ArrayList<Position> positions){

@@ -61,10 +61,12 @@ public class Weapon extends Item {
     }
 
     public static void showItems(Stage stage, Skin skin, Entity entity){
-        int x1=Gdx.graphics.getWidth()/4,y1=3*Gdx.graphics.getHeight()/4;
-        for(Item item: entity.getInventory()){
-            item.showItem(stage,skin,x1,y1,entity);
-            y1-=80;
+        if(entity!=null) {
+            int x1 = Gdx.graphics.getWidth() / 4, y1 = 3 * Gdx.graphics.getHeight() / 4;
+            for (Item item : entity.getInventory()) {
+                item.showItem(stage, skin, x1, y1, entity);
+                y1 -= 80;
+            }
         }
     }
 
@@ -74,9 +76,11 @@ public class Weapon extends Item {
     }
 
     public static void cleanInventoryButtons(Entity entity){
-        for(Button button: entity.getInventoryButtons()){
-            button.remove();
+        if(entity!=null) {
+            for (Button button : entity.getInventoryButtons()) {
+                button.remove();
+            }
+            entity.getInventoryButtons().clear();
         }
-        entity.getInventoryButtons().clear();
     }
 }
