@@ -32,11 +32,6 @@ public class FightScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            dispose();
-            game.setScreen(new LobbyScreen(game));
-            return;
-        }
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -103,6 +98,13 @@ public class FightScreen implements Screen {
     }
 
     private void keyboardInput(){
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            dispose();
+            game.setScreen(new LobbyScreen(game));
+            return;
+        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             game.gameMap.endTurn();
         }
