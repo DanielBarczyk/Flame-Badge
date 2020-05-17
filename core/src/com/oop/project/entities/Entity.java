@@ -243,7 +243,7 @@ public abstract class Entity {
     }
 
     boolean isTileAvailable(float x, float y, int[][] bfsResult){
-        return (x<map.getMapMaxX()&&x>=0&&y<map.getMapMaxY()&&y>=0&&map.isTileEmpty((int)x,(int)y)&&map.isTileTraversible((int)x,(int)y)&&bfsResult[(int)x][(int)y]<=getMove());
+        return (x<=map.getMapMaxX()&&x>=0&&y<=map.getMapMaxY()&&y>=0&&map.isTileEmpty((int)x,(int)y)&&map.isTileTraversible((int)x,(int)y)&&bfsResult[(int)x][(int)y]<=getMove());
     }
 
     public void printStats(){

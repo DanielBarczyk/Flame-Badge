@@ -212,14 +212,14 @@ public abstract class GameMap {
     private void moveEnemy(EnemyCharacter enemyCharacter){
         PlayableCharacter target=null;
         int[][] bfsResult= enemyCharacter.bfs();
-        /*for(int i=0;i<bfsResult.length;i++){
+        for(int i=0;i<bfsResult.length;i++){
             for(int j=0;j<bfsResult[i].length;j++){
                 System.out.print(bfsResult[i][j]);
             }
             System.out.println();
         }
         System.out.println();
-        */
+
         for (PlayableCharacter p:playableCharacters
              ) {
             if((enemyCharacter.getDistance(p)==enemyCharacter.getRange().getMax())||bfsResult[(int)p.getPos().x][(int)p.getPos().y]<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
