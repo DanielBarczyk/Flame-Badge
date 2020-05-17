@@ -24,8 +24,8 @@ public class Party {
     }
 
     public void createDefaultCharacters() {
-        characters.add(PlayableCharacter.makeArcher());
         characters.add(PlayableCharacter.makeSwordLord());
+        characters.add(PlayableCharacter.makeArcher());
         characters.add(PlayableCharacter.makeMage());
     }
 

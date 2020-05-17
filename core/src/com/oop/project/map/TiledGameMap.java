@@ -16,9 +16,12 @@ public class TiledGameMap extends GameMap {
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public TiledGameMap(FlameBadge game){
+    public TiledGameMap(FlameBadge game, int lvl){
         this.game=game;
-        loadmap2();
+        if(lvl==2)
+            loadmap2();
+        if(lvl==1)
+            loadmap1();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         activeCharacter = playableCharacters.get(0);
     }

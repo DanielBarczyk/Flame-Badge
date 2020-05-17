@@ -64,7 +64,7 @@ public class EnemyCharacter extends Entity {
             Arrays.fill(array,maxvalue);
         }
         result[(int)pos.x][(int)pos.y]=0;
-        ArrayBlockingQueue<Vector2> queue=new ArrayBlockingQueue<Vector2>((map.getMapMaxX()+1)*(map.getMapMaxY()+1)+1);
+        ArrayBlockingQueue<Vector2> queue=new ArrayBlockingQueue<>((map.getMapMaxX()+1)*(map.getMapMaxY()+1)+1);
         queue.add(pos);
         while(!queue.isEmpty()){
             Vector2 pole=queue.remove();
