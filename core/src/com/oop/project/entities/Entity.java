@@ -31,15 +31,19 @@ public abstract class Entity {
     Texture image;
     private Ranges range;
     Weapon currentlyEquipped;
+    private String longname;
+    private String shortname;
 
     private ArrayList<Button> inventoryButtons;
 
-    Entity(int x,int y, EntityType type, GameMap map,Ranges range) {
+    Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
+        this.longname = longname;
+        this.shortname = shortname;
         this.pos = new Vector2(x,y);
         this.type = type;
         this.map = map;
-        this.range=range;
-        inventory=new ArrayList<>();
+        this.range = range;
+        inventory = new ArrayList<>();
         inventoryButtons=new ArrayList<>();
     }
 
@@ -132,6 +136,10 @@ public abstract class Entity {
     public int getDistance(Entity b){
         return (int)Math.abs(b.pos.x-pos.x)+(int)Math.abs(b.pos.y-pos.y);
     }
+
+    public String getShortname() {return this.shortname;}
+
+    public String getLongname() {return this.longname;}
 
     public void moveTowards(Entity b){
         while(getDistance(b)>range.getMax()){

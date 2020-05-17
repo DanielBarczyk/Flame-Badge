@@ -16,18 +16,20 @@ import java.util.HashMap;
 public class PlayableCharacter extends Entity {
 
     private Texture actedImage;
+    private Texture portrait;
     private boolean active;
     private int moveLeft;
 
-    private PlayableCharacter(int x, int y, GameMap map, Ranges range, String pathToPng, String pathToActedImage, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
-        super(x, y, EntityType.PLAYER_UNIT, map,range);
-        this.unitStats=unitStats;
-        this.growths=growths;
-        moveLeft=unitStats.get(Stats.MOV);
-        currentHp=unitStats.get(Stats.MAXHP);
-        image = new Texture(pathToPng);
-        actedImage = new Texture(pathToActedImage);
-        active=true;
+    private PlayableCharacter(String longname, String shortname, int x, int y, GameMap map, Ranges range, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
+        super(longname, shortname, x, y, EntityType.PLAYER_UNIT, map,range);
+        this.unitStats = unitStats;
+        this.growths = growths;
+        moveLeft = unitStats.get(Stats.MOV);
+        currentHp = unitStats.get(Stats.MAXHP);
+        image = new Texture(this.getShortname()+"/default.png");
+        actedImage = new Texture(this.getShortname()+"/acted.png");
+        portrait = new Texture(this.getShortname()+"/portrait.png");
+        active = true;
     }
 
 
@@ -87,17 +89,16 @@ public class PlayableCharacter extends Entity {
         moveLeft=0;
     }
 
-    private boolean noEnemiesInRange(){
-        for (EnemyCharacter e:map.getEnemyCharacters()
-        ) {
+    private boolean noEnemiesInRange() {
+        for(EnemyCharacter e:map.getEnemyCharacters()) {
             if(Combat.canTheyFight(map.activeCharacter,e)) return false;
         }
         return true;
     }
 
-    private void levelUp(){
+    private void levelUp() {
         System.out.println("Level Up; Gained:");
-        for(int i=0;i<Stats.values().length;i++){
+        for(int i=0;i<Stats.values().length;i++) {
             if(growths.get(Stats.values()[i])>(int)(Math.random()*100)){
                 updateStat(Stats.values()[i],1);
                 System.out.println(1+" "+Stats.values()[i]);
@@ -129,7 +130,7 @@ public class PlayableCharacter extends Entity {
     }
 
     public static PlayableCharacter makeSwordLord(GameMap map){
-        PlayableCharacter swordLord=new PlayableCharacter(1,2,map, Ranges.MELEE,"testchar.png","testcharacted.png",PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0));
+        PlayableCharacter swordLord=new PlayableCharacter("SwordLord", "TCA", 1,2,map, Ranges.MELEE,PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0));
         swordLord.addItem(new Weapon("Iron Sword",200,3,70,0));
         swordLord.addItem(new Weapon("Rapier",400,3,70,10));
         swordLord.currentlyEquipped=(Weapon)swordLord.getInventory().get(0);
@@ -137,7 +138,7 @@ public class PlayableCharacter extends Entity {
     }
 
     public static PlayableCharacter makeArcher(GameMap map){
-        PlayableCharacter archer= new PlayableCharacter(0,3,map, Ranges.BOWS,"testchar2.png","testchar2acted.png",PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0));
+        PlayableCharacter archer= new PlayableCharacter("Archer", "TCB", 0,3, map, Ranges.BOWS, PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0));
         archer.addItem(new Weapon("Iron Bow",200,3,70,0));
         archer.addItem(new Weapon("Killer Bow",200,5,50,30));
         archer.currentlyEquipped=(Weapon)archer.getInventory().get(0);
@@ -145,7 +146,7 @@ public class PlayableCharacter extends Entity {
     }
 
     public static PlayableCharacter makeMage(GameMap map){
-        PlayableCharacter mage=new PlayableCharacter(0,1,map, Ranges.MAGIC,"testmage.png","testmageacted.png",PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0));
+        PlayableCharacter mage=new PlayableCharacter("Mage", "TCC", 0,1,map, Ranges.MAGIC, PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0));
         mage.addItem(new Weapon("Fire",200,4,70,0));
         mage.addItem(new Weapon("Thunder",200,5,70,15));
         mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
