@@ -17,10 +17,10 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class PlayableCharacter extends Entity {
-    private Texture actedImage;
-    private Texture portrait;
     private boolean active;
     private int moveLeft;
+
+    public PlayableCharacter() {}
 
     private PlayableCharacter(String longname, String shortname, int x, int y, GameMap map, Ranges range, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
         super(longname, shortname, x, y, EntityType.PLAYER_UNIT, map,range);
@@ -28,9 +28,6 @@ public class PlayableCharacter extends Entity {
         this.growths = growths;
         moveLeft = unitStats.get(Stats.MOV);
         currentHp = unitStats.get(Stats.MAXHP);
-        image = new Texture(this.getShortname()+"/default.png");
-        actedImage = new Texture(this.getShortname()+"/acted.png");
-        portrait = new Texture(this.getShortname()+"/portrait.png");
         active = true;
     }
 
@@ -38,9 +35,6 @@ public class PlayableCharacter extends Entity {
         super(longname, shortname, EntityType.PLAYER_UNIT, range);
         this.unitStats = unitStats;
         this.growths = growths;
-        image = new Texture(this.getShortname()+"/default.png");
-        actedImage = new Texture(this.getShortname()+"/acted.png");
-        portrait = new Texture(this.getShortname()+"/portrait.png");
     }
 
 
@@ -48,9 +42,9 @@ public class PlayableCharacter extends Entity {
     @Override
     public void render(SpriteBatch batch) {
         if(active)
-        batch.draw(image,pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
+        batch.draw(new Texture(this.getShortname()+"/default.png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
         else
-        batch.draw(actedImage,pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE);
+        batch.draw(new Texture(this.getShortname()+"/acted.png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE);
     }
 
 
@@ -138,10 +132,6 @@ public class PlayableCharacter extends Entity {
         unitStats.remove(stat);
         a+=value;
         unitStats.put(stat,a);
-    }
-
-    public Texture getPortrait() {
-        return this.portrait;
     }
 
     public static PlayableCharacter makeSwordLord(){

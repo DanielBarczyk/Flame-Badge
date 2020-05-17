@@ -14,12 +14,13 @@ import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 public class GameData {
     private String saveName;
     private Party party;
-    private FileHandle fileHandle;
 
     private static HashMap<String, GameData> saveGames;
     static {
         saveGames = new HashMap<>();
     }
+
+    public GameData() {}
 
     public GameData(String saveName) {
         if(saveGames.containsKey(saveName))
@@ -27,25 +28,31 @@ public class GameData {
 
         this.saveName = saveName;
         this.party = new Party(saveName);
-        this.fileHandle = Gdx.files.local("saves/"+saveName+".json");
         saveGames.put(saveName, this);
     }
 
     public static GameData loadGame(String name) {
         if(!saveGames.containsKey(name))
             throw new RuntimeException();
-        return json.fromJson(GameData.class, Base64Coder.decodeString(saveGames.get(name).fileHandle.readString()));
+        FileHandle fileHandle = Gdx.files.local("saves/"+name+".json");
+        return json.fromJson(GameData.class, Base64Coder.decodeString(fileHandle.readString()));
     }
 
     public void saveGame() {
+        FileHandle fileHandle = Gdx.files.local("saves/"+saveName+".json");
         fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(this)), false);
     }
 
-    public Collection<GameData> getSaves() {
+    public static Collection<GameData> getSaves() {
         return saveGames.values();
     }
 
     public Party getParty() {
         return party;
+    }
+
+    @Override
+    public String toString() {
+        return saveName;
     }
 }

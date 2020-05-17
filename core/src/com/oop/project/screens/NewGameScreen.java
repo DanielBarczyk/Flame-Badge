@@ -23,7 +23,7 @@ public class NewGameScreen implements Screen {
         this.stage = new Stage();
         this.skin = Skins.defaultSkin();
         this.textArea = new TextArea("Insert your save name:", skin);
-        this.textField = new TextField("Save name", skin);
+        this.textField = new TextField("NewGame", skin);
         textField.setHeight(120);
         textArea.setHeight(120);
     }
@@ -52,9 +52,9 @@ public class NewGameScreen implements Screen {
             game.setScreen(new MainMenuScreen(game));
             return;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             try{
-                game.currentGame = new GameData(textField.getMessageText());
+                game.currentGame = new GameData(textField.getText());
                 dispose();
                 game.setScreen(new LobbyScreen(game));
                 return;

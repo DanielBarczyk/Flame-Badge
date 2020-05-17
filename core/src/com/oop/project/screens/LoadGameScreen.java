@@ -9,56 +9,46 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
+import com.oop.project.lobby.GameData;
 
-public class LobbyScreen implements Screen {
+public class LoadGameScreen implements Screen {
     private final FlameBadge game;
     private final Stage stage;
     private final Skin skin;
 
-    public LobbyScreen(FlameBadge game) {
+    public LoadGameScreen(FlameBadge game) {
         this.game = game;
         this.stage = new Stage();
         this.skin = Skins.defaultSkin();
     }
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        // Create a button starting a new game
-        final TextButton fightButton = new TextButton("Fight", skin);
-        fightButton.setPosition((float)Gdx.graphics.getWidth()/2 - fightButton.getWidth()/2,
-                (float)Gdx.graphics.getHeight()/2 + fightButton.getHeight()/2 + 10);
-        fightButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                dispose();
-                game.setScreen(new FightScreen(game));
-            }
-        });
-        stage.addActor(fightButton);
 
-        // Create a button loading a game
-        TextButton partyButton = new TextButton("Manage party", skin);
-        partyButton.setPosition((float)Gdx.graphics.getWidth()/2 - partyButton.getWidth()/2,
-                (float)Gdx.graphics.getHeight()/2 - partyButton.getHeight()/2);
-        partyButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                dispose();
-                game.setScreen(new PartyScreen(game));
-            }
-        });
-        stage.addActor(partyButton);
-
-        // Create a button opening settings
-        TextButton backButton = new TextButton("Back to Main Menu", skin);
+        int offset = 100;
+        for(final GameData save : GameData.getSaves()) {
+            // Create a button starting a new game
+            final TextButton saveButton = new TextButton(save.toString(), skin);
+            saveButton.setPosition((float)Gdx.graphics.getWidth()/2 - saveButton.getWidth()/2,
+                    (float)Gdx.graphics.getHeight() - offset);
+            saveButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.currentGame = GameData.loadGame(save.toString());
+                    dispose();
+                    game.setScreen(new LobbyScreen(game));
+                }
+            });
+            offset += saveButton.getHeight() + 10;
+            stage.addActor(saveButton);
+        }
+        final TextButton backButton = new TextButton("Back to menu", skin);
         backButton.setPosition((float)Gdx.graphics.getWidth()/2 - backButton.getWidth()/2,
-                (float)Gdx.graphics.getHeight()/2 - 3*backButton.getHeight()/2 - 10);
+                (float)Gdx.graphics.getHeight() - offset);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.currentGame.saveGame();
                 game.setScreen(new MainMenuScreen(game));
             }
         });

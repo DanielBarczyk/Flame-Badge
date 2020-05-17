@@ -17,11 +17,8 @@ public class Party {
     private ArrayList<PlayableCharacter> characters;
     private ArrayList<PlayableCharacter> selected;
     private HashMap<String, Integer> map;
-    private static FileHandle fileHandle;
 
-    static {
-        fileHandle = new FileHandle("saves/default_characters.json");
-    }
+    public Party() {}
 
     public Party(String saveName) {
         this.characters = new ArrayList<>();

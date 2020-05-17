@@ -27,7 +27,6 @@ public abstract class Entity {
     HashMap<Stats,Integer> growths;
     private ArrayList<Item> inventory;
     int currentHp;
-    Texture image;
     private Ranges range;
     Weapon currentlyEquipped;
     private String longname;
@@ -35,7 +34,9 @@ public abstract class Entity {
 
     private ArrayList<Button> inventoryButtons;
 
-    Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
+    public Entity() {}
+
+    public Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
         this.longname = longname;
         this.shortname = shortname;
         this.pos = new Vector2(x,y);
@@ -156,7 +157,7 @@ public abstract class Entity {
         return (int)Math.abs(b.pos.x-pos.x)+(int)Math.abs(b.pos.y-pos.y);
     }
 
-    String getShortname() {return this.shortname;}
+    public String getShortname() {return this.shortname;}
 
     public String getLongname() {return this.longname;}
 

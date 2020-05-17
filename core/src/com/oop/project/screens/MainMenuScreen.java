@@ -50,7 +50,8 @@ public class MainMenuScreen implements Screen {
         loadButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("TO DO: Load game");
+                dispose();
+                game.setScreen(new LoadGameScreen(game));
             }
         });
         stage.addActor(loadButton);
@@ -62,9 +63,9 @@ public class MainMenuScreen implements Screen {
         settButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Party party = new Party("default");
-                party.createCharacter();
-                party.createCharacter();
+                //Party party = new Party("default");
+                //party.createCharacter();
+                //party.createCharacter();
             }
         });
         stage.addActor(settButton);
