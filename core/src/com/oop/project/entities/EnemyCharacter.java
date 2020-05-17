@@ -71,50 +71,50 @@ public class EnemyCharacter extends Entity {
             int current_distance=result[(int)pole.x][(int)pole.y];
             if(current_distance<getMove()+getRange().getMax()){
                 if(current_distance<getMove()){
-                    if(pole.x<map.getMapMaxX()&&(map.isTileEmpty((int)pole.x+1,(int)pole.y)||map.isTileOccupiedByPlayable((int)pole.x+1,(int)pole.y))&&map.isTileTraversible((int)pole.x+1,(int)pole.y)&&result[(int)pole.x+1][(int)pole.y]==maxvalue){
+                    if(pole.x<map.getMapMaxX()&&(map.isTileEmpty((int)pole.x+1,(int)pole.y)||map.isTileOccupiedByPlayable((int)pole.x+1,(int)pole.y))&&map.isTileTraversible((int)pole.x+1,(int)pole.y)&&result[(int)pole.x+1][(int)pole.y]==maxvalue&&(pole.x+1!=pos.x||pole.y!=pos.y)){
                         result[(int)pole.x+1][(int)pole.y]=current_distance+1;
                         queue.add(new Vector2(pole.x+1,pole.y));
                     }
 
-                    if(pole.x>0&&(map.isTileEmpty((int)pole.x-1,(int)pole.y)||map.isTileOccupiedByPlayable((int)pole.x-1,(int)pole.y))&&map.isTileTraversible((int)pole.x-1,(int)pole.y)&&result[(int)pole.x-1][(int)pole.y]==maxvalue){
+                    if(pole.x>0&&(map.isTileEmpty((int)pole.x-1,(int)pole.y)||map.isTileOccupiedByPlayable((int)pole.x-1,(int)pole.y))&&map.isTileTraversible((int)pole.x-1,(int)pole.y)&&result[(int)pole.x-1][(int)pole.y]==maxvalue&&(pole.x-1!=pos.x||pole.y!=pos.y)){
                         result[(int)pole.x-1][(int)pole.y]=current_distance+1;
                         queue.add(new Vector2(pole.x-1,pole.y));
                     }
 
-                    if(pole.y<map.getMapMaxY()&&(map.isTileEmpty((int)pole.x,(int)pole.y+1)||map.isTileOccupiedByPlayable((int)pole.x,(int)pole.y+1))&&map.isTileTraversible((int)pole.x,(int)pole.y+1)&&result[(int)pole.x][(int)pole.y+1]==maxvalue){
+                    if(pole.y<map.getMapMaxY()&&(map.isTileEmpty((int)pole.x,(int)pole.y+1)||map.isTileOccupiedByPlayable((int)pole.x,(int)pole.y+1))&&map.isTileTraversible((int)pole.x,(int)pole.y+1)&&result[(int)pole.x][(int)pole.y+1]==maxvalue&&(pole.x!=pos.x||pole.y+1!=pos.y)){
                         result[(int)pole.x][(int)pole.y+1]=current_distance+1;
                         queue.add(new Vector2(pole.x,pole.y+1));
                     }
 
-                    if(pole.y>0&&(map.isTileEmpty((int)pole.x,(int)pole.y-1)||map.isTileOccupiedByPlayable((int)pole.x,(int)pole.y-1))&&map.isTileTraversible((int)pole.x,(int)pole.y-1)&&result[(int)pole.x][(int)pole.y-1]==maxvalue){
+                    if(pole.y>0&&(map.isTileEmpty((int)pole.x,(int)pole.y-1)||map.isTileOccupiedByPlayable((int)pole.x,(int)pole.y-1))&&map.isTileTraversible((int)pole.x,(int)pole.y-1)&&result[(int)pole.x][(int)pole.y-1]==maxvalue&&(pole.x!=pos.x||pole.y-1!=pos.y)){
                         result[(int)pole.x][(int)pole.y-1]=current_distance+1;
                         queue.add(new Vector2(pole.x,pole.y-1));
                     }
                 }
                 else{
-                    if(pole.x<map.getMapMaxX()&&result[(int)pole.x+1][(int)pole.y]==maxvalue){
+                    if(pole.x<map.getMapMaxX()&&result[(int)pole.x+1][(int)pole.y]==maxvalue&&(pole.x+1!=pos.x||pole.y!=pos.y)){
                         result[(int)pole.x+1][(int)pole.y]=current_distance+1;
                         queue.add(new Vector2(pole.x+1,pole.y));
                     }
 
-                    if(pole.x>0&&result[(int)pole.x-1][(int)pole.y]==maxvalue){
+                    if(pole.x>0&&result[(int)pole.x-1][(int)pole.y]==maxvalue&&(pole.x-1!=pos.x||pole.y!=pos.y)){
                         result[(int)pole.x-1][(int)pole.y]=current_distance+1;
                         queue.add(new Vector2(pole.x-1,pole.y));
                     }
 
-                    if(pole.y<map.getMapMaxY()&&result[(int)pole.x][(int)pole.y+1]==maxvalue){
+                    if(pole.y<map.getMapMaxY()&&result[(int)pole.x][(int)pole.y+1]==maxvalue&&(pole.x!=pos.x||pole.y+1!=pos.y)){
                         result[(int)pole.x][(int)pole.y+1]=current_distance+1;
                         queue.add(new Vector2(pole.x,pole.y+1));
                     }
 
-                    if(pole.y>0&&result[(int)pole.x][(int)pole.y-1]==maxvalue){
+                    if(pole.y>0&&result[(int)pole.x][(int)pole.y-1]==maxvalue&&(pole.x!=pos.x||pole.y-1!=pos.y)){
                         result[(int)pole.x][(int)pole.y-1]=current_distance+1;
                         queue.add(new Vector2(pole.x,pole.y-1));
                     }
                 }
             }
         }
-
+        result[(int)pos.x][(int)pos.y]=0;
         return result;
     }
 }

@@ -42,7 +42,7 @@ public abstract class GameMap {
     void addEnemyCharactersMap2(){
         enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(10,2,this));
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(8,4,this));
-        enemyCharacters.add(EnemyCharacter.makeMage().setPos(9,3,this));
+        enemyCharacters.add(EnemyCharacter.makeMage().setPos(7,3,this));
         enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos( 10,8,this));
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(10,6,this));
         enemyCharacters.add(EnemyCharacter.makeMage().setPos(3,6,this));
@@ -210,9 +210,17 @@ public abstract class GameMap {
     private void moveEnemy(EnemyCharacter enemyCharacter){
         PlayableCharacter target=null;
         int[][] bfsResult= enemyCharacter.bfs();
+        for(int i=0;i<bfsResult.length;i++){
+            for(int j=0;j<bfsResult[i].length;j++){
+                System.out.print(bfsResult[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+
         for (PlayableCharacter p:playableCharacters
              ) {
-            if(bfsResult[(int)p.getPos().x][(int)p.getPos().y]<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
+            if((enemyCharacter.getDistance(p)==enemyCharacter.getRange().getMax())||bfsResult[(int)p.getPos().x][(int)p.getPos().y]<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
                 target=p;
                 enemyCharacter.moveTowards(bfsResult,p);
                 Combat.battle(enemyCharacter,p);
