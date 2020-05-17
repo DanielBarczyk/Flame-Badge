@@ -27,9 +27,9 @@ public class Party {
     }
 
     public void createDefaultCharacters() {
-        characters.add(new PlayableCharacter("Archer", "TCB", Ranges.BOWS, PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0)));
-        characters.add(new PlayableCharacter("SwordLord", "TCA", Ranges.MELEE,PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0)));
-        characters.add(new PlayableCharacter("Mage", "TCC", Ranges.MAGIC, PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0)));
+        characters.add(PlayableCharacter.makeArcher());
+        characters.add(PlayableCharacter.makeSwordLord());
+        characters.add(PlayableCharacter.makeMage());
     }
 
     public void createCharacter() {
