@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Combat;
@@ -142,27 +143,37 @@ public class PlayableCharacter extends Entity {
         return this.portrait;
     }
 
-    public static PlayableCharacter makeSwordLord(GameMap map){
-        PlayableCharacter swordLord=new PlayableCharacter("SwordLord", "TCA", 1,2,map, Ranges.MELEE,PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0));
+    public static PlayableCharacter makeSwordLord(){
+        PlayableCharacter swordLord=new PlayableCharacter("SwordLord", "TCA", Ranges.MELEE,PlayableCharacter.setStats(15,5,6,7,8,5,3,3,0,2),PlayableCharacter.setStats(70,40,60,60,55,20,30,0,0,0));
         swordLord.addItem(new Weapon("Iron Sword",200,3,70,0));
         swordLord.addItem(new Weapon("Rapier",400,3,70,10));
         swordLord.currentlyEquipped=(Weapon)swordLord.getInventory().get(0);
         return swordLord;
     }
 
-    public static PlayableCharacter makeArcher(GameMap map){
-        PlayableCharacter archer= new PlayableCharacter("Archer", "TCB", 0,3, map, Ranges.BOWS, PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0));
+    public static PlayableCharacter makeArcher(){
+        PlayableCharacter archer= new PlayableCharacter("Archer", "TCB", Ranges.BOWS, PlayableCharacter.setStats(12,3,8,6,3,3,7,3,80,2),PlayableCharacter.setStats(35,45,55,50,25,20,30,0,0,0));
         archer.addItem(new Weapon("Iron Bow",200,3,70,0));
         archer.addItem(new Weapon("Killer Bow",200,5,50,30));
         archer.currentlyEquipped=(Weapon)archer.getInventory().get(0);
         return archer;
     }
 
-    public static PlayableCharacter makeMage(GameMap map){
-        PlayableCharacter mage=new PlayableCharacter("Mage", "TCC", 0,1,map, Ranges.MAGIC, PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0));
+    public static PlayableCharacter makeMage(){
+        PlayableCharacter mage=new PlayableCharacter("Mage", "TCC", Ranges.MAGIC, PlayableCharacter.setStats(8,5,4,5,4,1,4,3,80,1),PlayableCharacter.setStats(45,75,35,20,50,30,10,0,0,0));
         mage.addItem(new Weapon("Fire",200,4,70,0));
         mage.addItem(new Weapon("Thunder",200,5,70,15));
         mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
         return mage;
+    }
+
+    public PlayableCharacter setPos(int x, int y,GameMap map){
+        this.pos.x=x;
+        this.pos.y=y;
+        this.map=map;
+        this.active=true;
+        moveLeft = unitStats.get(Stats.MOV);
+        currentHp = unitStats.get(Stats.MAXHP);
+        return this;
     }
 }

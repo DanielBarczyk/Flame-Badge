@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.oop.project.battles.Combat;
-import com.oop.project.battles.Ranges;
 import com.oop.project.entities.EnemyCharacter;
 import com.oop.project.entities.Entity;
 import com.oop.project.entities.PlayableCharacter;
@@ -21,21 +20,21 @@ public abstract class GameMap {
     GameMap() {
         playableCharacters = new ArrayList<>();
         enemyCharacters = new ArrayList<>();
-        addPlayableCharacters();
-        addEnemyCharacters();
+        addPlayableCharactersMap1();
+        addEnemyCharactersMap1();
         activeCharacter = playableCharacters.get(0);
     }
 
-    private void addPlayableCharacters(){
-        playableCharacters.add(PlayableCharacter.makeSwordLord(this));
-        playableCharacters.add(PlayableCharacter.makeArcher(this));
-        playableCharacters.add(PlayableCharacter.makeMage(this));
+    private void addPlayableCharactersMap1(){
+        playableCharacters.add(PlayableCharacter.makeSwordLord().setPos(1,2,this));
+        playableCharacters.add(PlayableCharacter.makeArcher().setPos(0,3,this));
+        playableCharacters.add(PlayableCharacter.makeMage().setPos(0,0,this));
     }
 
-    private void addEnemyCharacters(){
-        enemyCharacters.add(EnemyCharacter.makeFirstBrigand(this));
-        enemyCharacters.add(EnemyCharacter.makeSecondBrigand(this));
-        enemyCharacters.add(EnemyCharacter.makeMage(this));
+    private void addEnemyCharactersMap1(){
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(7,2,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(7,4,this));
+        enemyCharacters.add(EnemyCharacter.makeMage().setPos(9,3,this));
     }
 
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){

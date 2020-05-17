@@ -17,7 +17,6 @@ import com.oop.project.map.GameMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public abstract class Entity {
 
@@ -36,7 +35,7 @@ public abstract class Entity {
 
     private ArrayList<Button> inventoryButtons;
 
-    public Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
+    Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
         this.longname = longname;
         this.shortname = shortname;
         this.pos = new Vector2(x,y);
@@ -47,11 +46,12 @@ public abstract class Entity {
         this.inventoryButtons = new ArrayList<>();
     }
 
-    public Entity(String longname, String shortname, EntityType type, Ranges range) {
+    Entity(String longname, String shortname, EntityType type, Ranges range) {
         this.longname = longname;
         this.shortname = shortname;
         this.type = type;
         this.range = range;
+        this.pos=new Vector2();
         this.inventory = new ArrayList<>();
         this.inventoryButtons = new ArrayList<>();
     }
@@ -156,7 +156,7 @@ public abstract class Entity {
         return (int)Math.abs(b.pos.x-pos.x)+(int)Math.abs(b.pos.y-pos.y);
     }
 
-    public String getShortname() {return this.shortname;}
+    String getShortname() {return this.shortname;}
 
     public String getLongname() {return this.longname;}
 
@@ -258,4 +258,5 @@ public abstract class Entity {
     public GameMap getMap() {
         return map;
     }
+
 }
