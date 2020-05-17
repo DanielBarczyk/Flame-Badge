@@ -14,7 +14,6 @@ import com.oop.project.Equipment.Item;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
-import com.oop.project.screens.FightScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,5 +233,9 @@ public abstract class Entity {
 
     public void setCurrentlyEquipped(Weapon w) {
         currentlyEquipped=w;
+    }
+
+    public GameMap getMap() {
+        return map;
     }
 }

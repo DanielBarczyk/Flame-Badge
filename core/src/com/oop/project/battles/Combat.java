@@ -77,7 +77,7 @@ public class Combat {
     }
 
     private static int countAvo(Entity a){
-        return a.getUnitStats().get(Stats.SPD)*2+a.getUnitStats().get(Stats.LUCK);//add terrain bonuses
+        return a.getUnitStats().get(Stats.SPD)*2+a.getUnitStats().get(Stats.LUCK)+getUnitAvoBonus(a);
     }
 
     private static int countHit(Entity a){
@@ -99,7 +99,7 @@ public class Combat {
     }
 
     private static int countMeleeDamage(Entity pc, Entity ec){
-        return Math.max(countAtk(pc)-ec.getUnitStats().get(Stats.DEF),0);
+        return Math.max(countAtk(pc)-ec.getUnitStats().get(Stats.DEF)-getUnitDefBonus(ec),0);
     }
 
     private static int countMagicDamage(Entity pc, Entity ec){
@@ -142,5 +142,13 @@ public class Combat {
             }
         });
 
+    }
+
+    private static int getUnitAvoBonus(Entity a){
+        return a.getMap().getTileTypeByCoordinate(0,(int)a.getPos().x,(int)a.getPos().y).getAvoBonus();
+    }
+
+    private static int getUnitDefBonus(Entity a){
+        return a.getMap().getTileTypeByCoordinate(0,(int)a.getPos().x,(int)a.getPos().y).getDefBonus();
     }
 }

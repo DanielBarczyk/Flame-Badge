@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 public enum TileType {
 
-    GRASS(1,"grass"),
-    FOREST(2,"forest");
+    GRASS(1,"grass",0,0),
+    FOREST(2,"forest",1,30),
+    MOUNTAIN(3,"mountain",2,30);
 
     /*GRASS(1,"grass"),
     DIRT(2,"dirt"),
@@ -19,14 +20,26 @@ public enum TileType {
 
     private int id;
     private String name;
+    private int defBonus;
+    private int avoBonus;
 
-    TileType(int id, String name){
+    TileType(int id, String name,int defBonus,int avoBonus){
         this.id=id;
         this.name=name;
+        this.defBonus=defBonus;
+        this.avoBonus=avoBonus;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getDefBonus(){
+        return defBonus;
+    }
+
+    public int getAvoBonus(){
+        return avoBonus;
     }
 
     public String getName() {
