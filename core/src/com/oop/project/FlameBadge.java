@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.oop.project.battles.Combat;
 import com.oop.project.entities.EnemyCharacter;
+import com.oop.project.lobby.GameData;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
@@ -19,6 +20,7 @@ public class FlameBadge extends Game {
 	public SpriteBatch batch;
 	public OrthographicCamera cam;
 	public GameMap gameMap;
+	public GameData currentGame;
 
 	@Override
 	public void create () {

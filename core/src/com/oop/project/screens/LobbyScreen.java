@@ -44,8 +44,8 @@ public class LobbyScreen implements Screen {
         partyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //dispose();
-                //game.setScreen(new PartyScreen(game));
+                dispose();
+                game.setScreen(new PartyScreen(game));
             }
         });
         stage.addActor(partyButton);
