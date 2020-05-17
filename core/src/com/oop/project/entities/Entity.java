@@ -98,6 +98,13 @@ public abstract class Entity {
         return false;
     }
 
+    /* This is ridiculous.
+     * Fix this ASAP.
+     */
+    public void fixDesync() {
+        map = null;
+    }
+
     public abstract void render(SpriteBatch batch);
 
     public Vector2 getPos() {

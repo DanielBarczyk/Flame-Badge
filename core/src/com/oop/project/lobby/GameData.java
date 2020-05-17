@@ -3,6 +3,7 @@ package com.oop.project.lobby;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Base64Coder;
+import com.oop.project.entities.PlayableCharacter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class GameData {
     }
 
     public void saveGame() {
+        for(PlayableCharacter character : party.getCharacters())
+            character.fixDesync();
         party.getSelected().clear();
         FileHandle fileHandle = Gdx.files.local("saves/"+saveName+".json");
         fileHandle.writeString(json.toJson(this), false);
