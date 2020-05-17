@@ -1,8 +1,10 @@
 package com.oop.project.map;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.oop.project.FlameBadge;
 import com.oop.project.battles.Combat;
 import com.oop.project.entities.EnemyCharacter;
 import com.oop.project.entities.Entity;
@@ -12,29 +14,51 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public abstract class GameMap {
-    private ArrayList<PlayableCharacter> playableCharacters;
+    ArrayList<PlayableCharacter> playableCharacters;
     private ArrayList<EnemyCharacter> enemyCharacters;
 
     public PlayableCharacter activeCharacter;
+    FlameBadge game;
+
 
     GameMap() {
         playableCharacters = new ArrayList<>();
         enemyCharacters = new ArrayList<>();
-        addPlayableCharactersMap1();
-        addEnemyCharactersMap1();
-        activeCharacter = playableCharacters.get(0);
     }
 
-    private void addPlayableCharactersMap1(){
-        playableCharacters.add(PlayableCharacter.makeSwordLord().setPos(1,2,this));
-        playableCharacters.add(PlayableCharacter.makeArcher().setPos(0,3,this));
-        playableCharacters.add(PlayableCharacter.makeMage().setPos(0,0,this));
+    void addPlayableCharactersMap1(){
+        if(game==null)
+            System.out.println("game=null");
+        if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
+            defaultSelection();
+        else
+            loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap1Positions());
     }
 
-    private void addEnemyCharactersMap1(){
+    void addEnemyCharactersMap1(){
         enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(7,2,this));
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(7,4,this));
         enemyCharacters.add(EnemyCharacter.makeMage().setPos(9,3,this));
+    }
+
+    private void loadPlayableCharacters(ArrayList<PlayableCharacter> lista,ArrayList<Position> positions){
+        for(int i=0;i<lista.size();i++){
+            playableCharacters.add(lista.get(i).setPos(positions.get(i)));
+        }
+    }
+
+    private void defaultSelection(){
+        playableCharacters.add(PlayableCharacter.makeSwordLord().setPos(new Position(1,2,this)));
+        playableCharacters.add(PlayableCharacter.makeArcher().setPos(new Position(0,3,this)));
+        playableCharacters.add(PlayableCharacter.makeMage().setPos(new Position(0,0,this)));
+    }
+
+    private ArrayList<Position> getMap1Positions(){
+        ArrayList<Position> result=new ArrayList<>();
+        result.add(new Position(1,2,this));
+        result.add(new Position(0,3,this));
+        result.add(new Position(0,0,this));
+        return result;
     }
 
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch){

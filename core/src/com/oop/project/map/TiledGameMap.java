@@ -8,15 +8,20 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.oop.project.FlameBadge;
 
 public class TiledGameMap extends GameMap {
 
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public TiledGameMap(){
+    public TiledGameMap(FlameBadge game){
+        this.game=game;
         tiledMap=new TmxMapLoader().load("map1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        addPlayableCharactersMap1();
+        addEnemyCharactersMap1();
+        activeCharacter = playableCharacters.get(0);
     }
 
     @Override

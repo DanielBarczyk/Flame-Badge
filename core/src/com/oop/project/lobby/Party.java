@@ -72,5 +72,7 @@ public class Party {
         return characters;
     }
 
+    public ArrayList<PlayableCharacter> getSelected(){ return selected;}
+
 
 }

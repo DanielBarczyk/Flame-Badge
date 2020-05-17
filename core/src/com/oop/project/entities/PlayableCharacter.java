@@ -10,6 +10,7 @@ import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Combat;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
+import com.oop.project.map.Position;
 import com.oop.project.map.TileType;
 
 import java.awt.*;
@@ -167,10 +168,9 @@ public class PlayableCharacter extends Entity {
         return mage;
     }
 
-    public PlayableCharacter setPos(int x, int y,GameMap map){
-        this.pos.x=x;
-        this.pos.y=y;
-        this.map=map;
+    public PlayableCharacter setPos(Position pos){
+        this.pos=pos.getPos();
+        this.map=pos.getMap();
         this.active=true;
         moveLeft = unitStats.get(Stats.MOV);
         currentHp = unitStats.get(Stats.MAXHP);
