@@ -186,7 +186,6 @@ public abstract class Entity {
     public String getLongname() {return this.longname;}
 
     public void moveTowards(int[][] bfsResult,Entity b){
-        System.out.println("moveTowards "+ b.getPos().x+" "+b.getPos().y);
         if(getRange().getMax()==2){
             if(isTileAvailable(b.getPos().x+2,b.getPos().y,bfsResult)){
                 pos.x=b.getPos().x+2;
@@ -244,14 +243,6 @@ public abstract class Entity {
     }
 
     boolean isTileAvailable(float x, float y, int[][] bfsResult){
-        System.out.println(x+" "+y);
-        System.out.println(x<map.getMapMaxX());
-        System.out.println(x>=0);
-        System.out.println(y<map.getMapMaxY());
-        System.out.println(y>=0);
-        System.out.println(map.isTileEmpty((int)x,(int)y));
-        System.out.println(map.isTileTraversible((int)x,(int)y));
-        System.out.println(bfsResult[(int)x][(int)y]<=getMove());
         return (x<map.getMapMaxX()&&x>=0&&y<map.getMapMaxY()&&y>=0&&map.isTileEmpty((int)x,(int)y)&&map.isTileTraversible((int)x,(int)y)&&bfsResult[(int)x][(int)y]<=getMove());
     }
 

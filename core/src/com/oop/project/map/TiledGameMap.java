@@ -36,7 +36,7 @@ public class TiledGameMap extends GameMap {
         mapMaxX=14;
         mapMaxY=9;
         addPlayableCharactersMap2();
-        addEnemyCharactersMap1();
+        addEnemyCharactersMap2();
     }
 
 

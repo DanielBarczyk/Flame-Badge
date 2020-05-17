@@ -39,6 +39,12 @@ public abstract class GameMap {
         enemyCharacters.add(EnemyCharacter.makeMage().setPos(9,3,this));
     }
 
+    void addEnemyCharactersMap2(){
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(7,2,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(7,4,this));
+        enemyCharacters.add(EnemyCharacter.makeMage().setPos(9,3,this));
+    }
+
     private void loadPlayableCharacters(ArrayList<PlayableCharacter> lista,ArrayList<Position> positions){
         for(int i=0;i<lista.size();i++){
             playableCharacters.add(lista.get(i).setPos(positions.get(i)));
@@ -60,10 +66,8 @@ public abstract class GameMap {
     }
 
     void addPlayableCharactersMap2(){
-        System.out.println(game.currentGame.getParty().getSelected().size());
         if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
             game.currentGame.getParty().selectDefaultCharacters();
-        System.out.println(game.currentGame.getParty().getSelected().size());
         loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap2Positions());
     }
 
@@ -199,13 +203,6 @@ public abstract class GameMap {
     private void moveEnemy(EnemyCharacter enemyCharacter){
         PlayableCharacter target=null;
         int[][] bfsResult= enemyCharacter.bfs();
-        for(int i=0;i<bfsResult.length;i++){
-            for(int j=0;j<bfsResult[i].length;j++){
-                System.out.print(bfsResult[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
         for (PlayableCharacter p:playableCharacters
              ) {
             if(bfsResult[(int)p.getPos().x][(int)p.getPos().y]<=enemyCharacter.getMove()+enemyCharacter.getRange().getMax()){
