@@ -1,18 +1,16 @@
 package com.oop.project.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
+import com.oop.project.lobby.Party;
 
 import static com.oop.project.entities.Entity.printStatsExplanationButton;
 
@@ -39,7 +37,8 @@ public class MainMenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new LobbyScreen(game));
+                game.setScreen(new NewGameScreen(game));
+                //game.setScreen(new LobbyScreen(game));
             }
         });
         stage.addActor(gameButton);
@@ -63,7 +62,9 @@ public class MainMenuScreen implements Screen {
         settButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("TO DO: Open settings");
+                Party party = new Party("default");
+                party.createCharacter();
+                party.createCharacter();
             }
         });
         stage.addActor(settButton);
@@ -96,7 +97,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();

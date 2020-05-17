@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Combat;
 import com.oop.project.battles.Ranges;
@@ -14,7 +15,6 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class PlayableCharacter extends Entity {
-
     private Texture actedImage;
     private Texture portrait;
     private boolean active;
@@ -30,6 +30,15 @@ public class PlayableCharacter extends Entity {
         actedImage = new Texture(this.getShortname()+"/acted.png");
         portrait = new Texture(this.getShortname()+"/portrait.png");
         active = true;
+    }
+
+    public PlayableCharacter(String longname, String shortname, Ranges range, HashMap<Stats, Integer> unitStats, HashMap<Stats, Integer> growths) {
+        super(longname, shortname, EntityType.PLAYER_UNIT, range);
+        this.unitStats = unitStats;
+        this.growths = growths;
+        image = new Texture(this.getShortname()+"/default.png");
+        actedImage = new Texture(this.getShortname()+"/acted.png");
+        portrait = new Texture(this.getShortname()+"/portrait.png");
     }
 
 
@@ -127,6 +136,10 @@ public class PlayableCharacter extends Entity {
         unitStats.remove(stat);
         a+=value;
         unitStats.put(stat,a);
+    }
+
+    public Texture getPortrait() {
+        return this.portrait;
     }
 
     public static PlayableCharacter makeSwordLord(GameMap map){

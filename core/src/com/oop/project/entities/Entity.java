@@ -18,6 +18,7 @@ import com.oop.project.screens.FightScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public abstract class Entity {
 
@@ -36,15 +37,24 @@ public abstract class Entity {
 
     private ArrayList<Button> inventoryButtons;
 
-    Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
+    public Entity(String longname, String shortname, int x,int y, EntityType type, GameMap map,Ranges range) {
         this.longname = longname;
         this.shortname = shortname;
         this.pos = new Vector2(x,y);
         this.type = type;
         this.map = map;
         this.range = range;
-        inventory = new ArrayList<>();
-        inventoryButtons=new ArrayList<>();
+        this.inventory = new ArrayList<>();
+        this.inventoryButtons = new ArrayList<>();
+    }
+
+    public Entity(String longname, String shortname, EntityType type, Ranges range) {
+        this.longname = longname;
+        this.shortname = shortname;
+        this.type = type;
+        this.range = range;
+        this.inventory = new ArrayList<>();
+        this.inventoryButtons = new ArrayList<>();
     }
 
     public void update(float delta){
@@ -97,13 +107,23 @@ public abstract class Entity {
         return type.getHeight();
     }
 
-    static HashMap<Stats,Integer> setStats(int... bases){
+    public static HashMap<Stats,Integer> setStats(int... bases){
         HashMap<Stats,Integer> hashMap=new HashMap<>();
         for(int i=0;i<Stats.values().length;i++){
             hashMap.put(Stats.values()[i],bases[i]);
         }
         return hashMap;
     }
+
+    public static HashMap<Stats,Integer> setStats(String... bases){
+        HashMap<Stats,Integer> hashMap=new HashMap<>();
+        for(int i=0;i<Stats.values().length;i++){
+            hashMap.put(Stats.values()[i], Integer.parseInt(bases[i]));
+        }
+        return hashMap;
+    }
+
+
 
 
     public void takeDamage(int damage) {
