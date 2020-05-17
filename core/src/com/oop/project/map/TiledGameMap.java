@@ -2,6 +2,7 @@ package com.oop.project.map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -17,12 +18,25 @@ public class TiledGameMap extends GameMap {
 
     public TiledGameMap(FlameBadge game){
         this.game=game;
-        tiledMap=new TmxMapLoader().load("map1.tmx");
+        loadmap1();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         addPlayableCharactersMap1();
         addEnemyCharactersMap1();
         activeCharacter = playableCharacters.get(0);
     }
+
+    private void loadmap1(){
+        tiledMap=new TmxMapLoader().load("map1.tmx");
+        mapMaxX=9;
+        mapMaxY=4;
+    }
+
+    private void loadmap2(){
+        tiledMap=new TmxMapLoader().load("map2.tmx");
+        mapMaxX=14;
+        mapMaxY=9;
+    }
+
 
     @Override
     public void render(OrthographicCamera camera, SpriteBatch spriteBatch) {

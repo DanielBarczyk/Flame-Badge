@@ -18,6 +18,8 @@ public abstract class GameMap {
 
     public PlayableCharacter activeCharacter;
     FlameBadge game;
+    int mapMaxX;
+    int mapMaxY;
 
 
     GameMap() {
@@ -98,6 +100,10 @@ public abstract class GameMap {
             if(entity.getPos().equals(targetTile)) return false;
         }
         return true;
+    }
+
+    public boolean isTileTraversible(int x,int y){
+        return getTileTypeByCoordinate(0,x,y).isTraversible();
     }
 
     public boolean isTileOccupiedByPlayable(int x,int y){
@@ -193,5 +199,14 @@ public abstract class GameMap {
                 playableCharacters.remove(target);
             }
         }
+    }
+
+
+    public int getMapMaxX(){
+        return mapMaxX;
+    }
+
+    public int getMapMaxY(){
+        return mapMaxY;
     }
 }
