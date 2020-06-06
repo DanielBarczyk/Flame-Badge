@@ -157,6 +157,14 @@ public class PlayableCharacter extends Entity {
         return mage;
     }
 
+    public static PlayableCharacter makeLanceCav(){
+        PlayableCharacter lanceCav=new PlayableCharacter("LanceCav", "TCD", Ranges.MELEE, PlayableCharacter.setStats(11,7,5,6,7,5,4,5,20,3),PlayableCharacter.setStats(55,55,40,30,30,40,30,0,0,0));
+        lanceCav.addItem(new Weapon("Iron Lance", 300, 5,75,0));
+        lanceCav.addItem(new Weapon("Killer Lance", 300, 4,55,30));
+        lanceCav.currentlyEquipped=(Weapon)lanceCav.getInventory().get(0);
+        return lanceCav;
+    }
+
     public PlayableCharacter setPos(Position pos){
         this.pos=pos.getPos();
         this.map=pos.getMap();
