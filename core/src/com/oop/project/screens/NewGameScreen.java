@@ -59,7 +59,6 @@ public class NewGameScreen implements Screen {
                 game.setScreen(new LobbyScreen(game));
                 return;
             }catch(RuntimeException e){
-                e.printStackTrace();
                 textArea.setText("This Save Name is already taken!");
             }
         }

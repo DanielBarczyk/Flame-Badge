@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Combat;
 import com.oop.project.battles.Ranges;
@@ -13,7 +11,6 @@ import com.oop.project.map.GameMap;
 import com.oop.project.map.Position;
 import com.oop.project.map.TileType;
 
-import java.awt.*;
 import java.util.HashMap;
 
 public class PlayableCharacter extends Entity {
