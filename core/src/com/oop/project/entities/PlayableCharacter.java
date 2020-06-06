@@ -41,9 +41,9 @@ public class PlayableCharacter extends Entity {
     @Override
     public void render(SpriteBatch batch) {
         if(active)
-        batch.draw(new Texture(this.getShortname()+"/default.png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
+        batch.draw(new Texture("idle/"+this.getShortname()+".png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
         else
-        batch.draw(new Texture(this.getShortname()+"/acted.png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE);
+        batch.draw(new Texture("acted/"+this.getShortname()+".png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE);
     }
 
 

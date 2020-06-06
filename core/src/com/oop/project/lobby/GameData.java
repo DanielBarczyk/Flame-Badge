@@ -27,12 +27,14 @@ public class GameData {
         this.party = new Party();
     }
 
-    public static GameData loadGame(String name) {
-        if(!SaveGame.exists(name))
-            throw new RuntimeException();
-        System.out.println("Loading saves/"+name+".json");
-        FileHandle fileHandle = Gdx.files.local("saves/"+name+".json");
-        return json.fromJson(GameData.class, fileHandle.readString());
+    public static GameData loadGame(String name) throws InvalidSaveException {
+        try {
+            FileHandle fileHandle = Gdx.files.local("saves/"+name+".json");
+            return json.fromJson(GameData.class, fileHandle.readString());
+        } catch (Exception e) {
+            throw new InvalidSaveException();
+        }
+
     }
 
     public void saveGame() {
@@ -41,6 +43,8 @@ public class GameData {
         party.getSelected().clear();
         FileHandle fileHandle = Gdx.files.local("saves/"+saveName+".json");
         fileHandle.writeString(json.toJson(this), false);
+        SaveGame.getSaveGames().put(saveName, this);
+        SaveGame.saveToJSON();
     }
 
     public Party getParty() {
@@ -50,5 +54,12 @@ public class GameData {
     @Override
     public String toString() {
         return saveName;
+    }
+
+    public static class InvalidSaveException extends Exception {
+        @Override
+        public String getMessage() {
+            return "The save could not be loaded properly.";
+        }
     }
 }

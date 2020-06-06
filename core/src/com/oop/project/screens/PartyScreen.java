@@ -3,7 +3,9 @@ package com.oop.project.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -39,8 +41,9 @@ public class PartyScreen implements Screen {
         this.currentSelect = game.currentGame.getParty().getCharacters().get(0);
     }
 
+
     @Override
-    public void show() {
+    public void show() { // This is called the first time the screen is shown
         Gdx.input.setInputProcessor(stage);
         float nextX = 0, nextY = stage.getHeight()-PORTRAIT_RESOLUTION;
 
@@ -62,7 +65,7 @@ public class PartyScreen implements Screen {
 
         // For every available character, create a portrait in the menu
         for(final PlayableCharacter character : game.currentGame.getParty().getCharacters()) {
-            final ImageButton image = new ImageButton(new TextureRegionDrawable(new Texture(character.getShortname()+"/portrait.png")));
+            final ImageButton image = new ImageButton(new TextureRegionDrawable(new Texture("portraits/"+character.getShortname()+".png")));
 
             image.setPosition(nextX+8,nextY+8);
             nextX += PORTRAIT_RESOLUTION;
@@ -124,17 +127,17 @@ public class PartyScreen implements Screen {
         stage.draw();
         game.batch.begin();
         HashMap<Stats, Integer> unitStats = currentSelect.getUnitStats();
-        font.draw(game.batch, currentSelect.getLongname(), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-20);
-        font.draw(game.batch, "MAXHP: "+unitStats.get(Stats.MAXHP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-40);
-        font.draw(game.batch, "ATK: "+unitStats.get(Stats.ATK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-60);
-        font.draw(game.batch, "SPD: "+unitStats.get(Stats.SPD), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-80);
-        font.draw(game.batch, "SKILL: "+unitStats.get(Stats.SKILL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-100);
-        font.draw(game.batch, "LCK: "+unitStats.get(Stats.LUCK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-120);
-        font.draw(game.batch, "DEF: "+unitStats.get(Stats.DEF), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-140);
-        font.draw(game.batch, "RES: "+unitStats.get(Stats.RES), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-160);
-        font.draw(game.batch, "MOV: "+unitStats.get(Stats.MOV), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-180);
-        font.draw(game.batch, "EXP: "+unitStats.get(Stats.EXP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-200);
-        font.draw(game.batch, "LVL: "+unitStats.get(Stats.LVL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, game.cam.viewportHeight-220);
+        font.draw(game.batch, currentSelect.getLongname(), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-80);
+        font.draw(game.batch, "MAXHP: "+unitStats.get(Stats.MAXHP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-100);
+        font.draw(game.batch, "ATK: "+unitStats.get(Stats.ATK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-120);
+        font.draw(game.batch, "SPD: "+unitStats.get(Stats.SPD), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-140);
+        font.draw(game.batch, "SKILL: "+unitStats.get(Stats.SKILL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-160);
+        font.draw(game.batch, "LCK: "+unitStats.get(Stats.LUCK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-180);
+        font.draw(game.batch, "DEF: "+unitStats.get(Stats.DEF), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-200);
+        font.draw(game.batch, "RES: "+unitStats.get(Stats.RES), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-220);
+        font.draw(game.batch, "MOV: "+unitStats.get(Stats.MOV), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-240);
+        font.draw(game.batch, "EXP: "+unitStats.get(Stats.EXP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-260);
+        font.draw(game.batch, "LVL: "+unitStats.get(Stats.LVL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-280);
         game.batch.end();
     }
 

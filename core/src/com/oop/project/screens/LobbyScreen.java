@@ -60,7 +60,6 @@ public class LobbyScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.currentGame.saveGame();
-                SaveGame.getSaveGames().put(game.currentGame.toString(), game.currentGame);
                 dispose();
                 game.setScreen(new MainMenuScreen(game));
             }
