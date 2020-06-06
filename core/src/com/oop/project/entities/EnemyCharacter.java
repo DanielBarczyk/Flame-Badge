@@ -19,7 +19,7 @@ public class EnemyCharacter extends Entity {
         super(longname, shortname, EntityType.ENEMY_UNIT, range);
         this.unitStats=unitStats;
         currentHp=unitStats.get(Stats.MAXHP);
-        image = new Texture(this.getShortname()+"/default.png");
+        image = new Texture("idle/"+this.getShortname()+".png");
     }
 
     @Override

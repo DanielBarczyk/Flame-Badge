@@ -36,12 +36,17 @@ public class LoadGameScreen implements Screen {
             saveButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    game.currentGame = GameData.loadGame(save.toString());
-                    for(PlayableCharacter character : game.currentGame.getParty().getCharacters()) {
-                        character.fixStats();
+                    try {
+                        game.currentGame = GameData.loadGame(save.toString());
+                        for(PlayableCharacter character : game.currentGame.getParty().getCharacters()) {
+                            character.fixStats();
+                        }
+                        dispose();
+                        game.setScreen(new LobbyScreen(game));
+                    } catch (GameData.InvalidSaveException e) {
+                        System.out.println("Loading save game \"" + save.toString() +"\" has failed.");
                     }
-                    dispose();
-                    game.setScreen(new LobbyScreen(game));
+
                 }
             });
             offset += saveButton.getHeight() + 10;

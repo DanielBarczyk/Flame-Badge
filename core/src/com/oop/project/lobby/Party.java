@@ -30,7 +30,7 @@ public class Party {
     }
 
     public void selectDefaultCharacters(){
-        for(PlayableCharacter pc: characters)
+        for(PlayableCharacter pc : characters)
             selected.add(pc);
     }
 
