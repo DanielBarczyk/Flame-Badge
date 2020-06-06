@@ -68,10 +68,15 @@ public abstract class GameMap {
         result.add(new Position(1,2,this));
         result.add(new Position(0,3,this));
         result.add(new Position(0,0,this));
+        result.add(new Position(2,1,this));
         return result;
     }
 
     void addPlayableCharactersMap2(){
+        if(game.currentGame.getParty().getCharacters().size()==3) {
+            game.currentGame.getParty().getCharacters().add(PlayableCharacter.makeLanceCav());
+            game.currentGame.getParty().getSelected().add(game.currentGame.getParty().getCharacters().get(3));
+        }
         if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
             game.currentGame.getParty().selectDefaultCharacters();
         loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap2Positions());
@@ -82,6 +87,7 @@ public abstract class GameMap {
         result.add(new Position(2,3,this));
         result.add(new Position(3,2,this));
         result.add(new Position(1,1,this));
+        result.add(new Position(2,2,this));
         return result;
     }
 
