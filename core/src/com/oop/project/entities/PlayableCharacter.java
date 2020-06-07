@@ -182,7 +182,7 @@ public class PlayableCharacter extends Entity {
     public void heal(PlayableCharacter healedCharacter){
         if(this.getRange()==Ranges.HEALER&&getDistance(healedCharacter)==1){
             healedCharacter.currentHp+=healedCharacter.getUnitStats().get(Stats.MAXHP)/2;
-            if(healedCharacter.currentHp>healedCharacter.getUnitStats().get(Stats.MAXHP)/2){
+            if(healedCharacter.currentHp>healedCharacter.getUnitStats().get(Stats.MAXHP)){
                 healedCharacter.currentHp=healedCharacter.getUnitStats().get(Stats.MAXHP);
             }
             this.makeInactive();
