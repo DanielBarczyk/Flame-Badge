@@ -308,7 +308,7 @@ public abstract class Entity {
 
     public static void printStatsExplanationButton(Stage stage, Skin skin){
         final TextButton statsButton = new TextButton(statsExplanationString(), skin);
-        statsButton.setPosition((float)Gdx.graphics.getWidth()/2 - statsButton.getWidth()/2,
+        statsButton.setPosition((float)Gdx.graphics.getWidth()-40-statsButton.getWidth() ,
                 3*(float)Gdx.graphics.getHeight()/4 - statsButton.getHeight()-20);
         stage.addActor(statsButton);
         statsButton.addListener(new ClickListener() {
