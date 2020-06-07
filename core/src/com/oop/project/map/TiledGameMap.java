@@ -62,18 +62,18 @@ public class TiledGameMap extends GameMap {
         mapMaxX=14;
         mapMaxY=9;
         addPlayableCharactersMap3();
-        addEnemyCharactersMap2();
+        addEnemyCharactersMap3();
     }private void loadmap4(){
         tiledMap=new TmxMapLoader().load("map4.tmx");
         mapMaxX=14;
         mapMaxY=9;
-        addPlayableCharactersMap2();
+        addPlayableCharactersMap4();
         addEnemyCharactersMap2();
     }private void loadmap5(){
         tiledMap=new TmxMapLoader().load("map5.tmx");
         mapMaxX=14;
         mapMaxY=9;
-        addPlayableCharactersMap2();
+        addPlayableCharactersMap5();
         addEnemyCharactersMap2();
     }
 

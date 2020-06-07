@@ -52,6 +52,41 @@ public abstract class GameMap {
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(2,8,this));
     }
 
+    void addEnemyCharactersMap3(){
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(6,2,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(7,3,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(6,4,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(8,0,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,4,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,4,this));
+
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(14,0,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,3,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(13,1,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(11,2,this));
+
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(14,8,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,7,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(13,6,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,8,this));
+
+
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(6,7,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(7,9,this));
+
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(4,8,this));
+
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(3,6,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(2,7,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(2,9,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(0,8,this));
+
+    }
+
+    void addEnemyCharactersMap4(){
+
+    }
+
     private void loadPlayableCharacters(ArrayList<PlayableCharacter> lista,ArrayList<Position> positions){
         for(int i=0;i<lista.size();i++){
             playableCharacters.add(lista.get(i).setPos(positions.get(i)));
