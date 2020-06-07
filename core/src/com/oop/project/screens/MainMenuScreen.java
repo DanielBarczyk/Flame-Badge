@@ -67,7 +67,8 @@ public class MainMenuScreen implements Screen {
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.dispose();
+                stage.dispose();
+                skin.dispose();
                 System.exit(0);
             }
         });
