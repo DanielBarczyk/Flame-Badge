@@ -8,7 +8,7 @@ import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 public class GameData {
     private String saveName;
     private final Party party;
-
+    private int currentLevel;
     // The JSON library requires a default constructor, so this method is necessary.
     public GameData() {
         party = new Party();
@@ -19,6 +19,7 @@ public class GameData {
             throw new RuntimeException();
         this.saveName = saveName;
         this.party = new Party();
+        currentLevel=1;
     }
 
     public static GameData loadGame(String name) throws InvalidSaveException {
@@ -50,10 +51,20 @@ public class GameData {
         return saveName;
     }
 
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void incrementCurrentLevel() {
+        currentLevel++;
+    }
+
     public static class InvalidSaveException extends Exception {
         @Override
         public String getMessage() {
             return "The save could not be loaded properly.";
         }
     }
+
+
 }

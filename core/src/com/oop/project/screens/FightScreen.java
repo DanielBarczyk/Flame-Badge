@@ -31,7 +31,7 @@ public class FightScreen implements Screen {
 
     @Override
     public void show() {
-        game.gameMap = new TiledGameMap(game, 1);
+        game.gameMap = new TiledGameMap(game);
         Gdx.input.setInputProcessor(stage);
     }
 

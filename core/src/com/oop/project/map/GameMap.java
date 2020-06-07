@@ -255,6 +255,7 @@ public abstract class GameMap {
     }
 
     private void endMap(){
-        game.gameMap = new TiledGameMap(game,2);
+        game.currentGame.incrementCurrentLevel();
+        game.gameMap = new TiledGameMap(game);
     }
 }
