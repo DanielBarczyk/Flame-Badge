@@ -165,6 +165,11 @@ public class PlayableCharacter extends Entity {
         return lanceCav;
     }
 
+    public static PlayableCharacter makeHealer(){
+        PlayableCharacter healer=new PlayableCharacter("Healer","TCE",Ranges.HEALER,PlayableCharacter.setStats(10,0,0,4,0,4,4,4,1,0),PlayableCharacter.setStats(30,0,0,40,0,40,40,0,0,0));
+        return healer;
+    }
+
     public PlayableCharacter setPos(Position pos){
         this.pos=pos.getPos();
         this.map=pos.getMap();
@@ -172,5 +177,16 @@ public class PlayableCharacter extends Entity {
         moveLeft = unitStats.get(Stats.MOV);
         currentHp = unitStats.get(Stats.MAXHP);
         return this;
+    }
+
+    public void heal(PlayableCharacter healedCharacter){
+        if(this.getRange()==Ranges.HEALER&&getDistance(healedCharacter)==1){
+            healedCharacter.currentHp+=healedCharacter.getUnitStats().get(Stats.MAXHP)/2;
+            if(healedCharacter.currentHp>healedCharacter.getUnitStats().get(Stats.MAXHP)/2){
+                healedCharacter.currentHp=healedCharacter.getUnitStats().get(Stats.MAXHP);
+            }
+            this.makeInactive();
+        }
+
     }
 }

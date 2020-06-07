@@ -25,6 +25,7 @@ public class Party {
 
     public void createDefaultCharacters() {
         characters.add(PlayableCharacter.makeSwordLord());
+        //characters.add(PlayableCharacter.makeHealer());
         characters.add(PlayableCharacter.makeArcher());
         characters.add(PlayableCharacter.makeMage());
     }
