@@ -37,15 +37,24 @@ public class EnemyCharacter extends Entity {
         firstBrigand.currentlyEquipped=(Weapon)firstBrigand.getInventory().get(0);
         return firstBrigand;
     }
+
     public static EnemyCharacter makeSecondBrigand(){
         EnemyCharacter secondBrigand=new EnemyCharacter("SecondBrigand", "TEA",Ranges.MELEE,EnemyCharacter.setStats(9,7,4,2,3,1,0,3,0,1));
         secondBrigand.addItem(new Weapon("Iron Axe",200,5,55,0));
         secondBrigand.currentlyEquipped=(Weapon)secondBrigand.getInventory().get(0);
         return secondBrigand;
     }
+
     public static EnemyCharacter makeThirdBrigand(){
         EnemyCharacter thirdBrigand=new EnemyCharacter("ThirdBrigand", "TEA", Ranges.MELEE,EnemyCharacter.setStats(10,8,6,4,5,3,2,3,0,1));
         thirdBrigand.addItem(new Weapon("Iron Axe",200,5,55,0));
+        thirdBrigand.currentlyEquipped=(Weapon)thirdBrigand.getInventory().get(0);
+        return thirdBrigand;
+    }
+
+    public static EnemyCharacter makeFourthBrigand(){
+        EnemyCharacter thirdBrigand=new EnemyCharacter("ThirdBrigand", "TEA", Ranges.MELEE,EnemyCharacter.setStats(12,10,8,6,7,5,4,3,0,1));
+        thirdBrigand.addItem(new Weapon("Steel Axe",200,8,65,0));
         thirdBrigand.currentlyEquipped=(Weapon)thirdBrigand.getInventory().get(0);
         return thirdBrigand;
     }
@@ -60,6 +69,13 @@ public class EnemyCharacter extends Entity {
     public static EnemyCharacter makeSecondMage(){
         EnemyCharacter mage=new EnemyCharacter("EnemyMage", "TEB", Ranges.MAGIC,EnemyCharacter.setStats(12,9,7,5,3,3,2,2,0,1));
         mage.addItem(new Weapon("Fire",200,4,70,0));
+        mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
+        return mage;
+    }
+
+    public static EnemyCharacter makeThirdMage(){
+        EnemyCharacter mage=new EnemyCharacter("EnemyMage", "TEB", Ranges.MAGIC,EnemyCharacter.setStats(14,11,8,7,5,5,4,3,0,1));
+        mage.addItem(new Weapon("Thoron",200,6,70,15));
         mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
         return mage;
     }
