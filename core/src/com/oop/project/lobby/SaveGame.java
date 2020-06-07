@@ -1,6 +1,5 @@
 package com.oop.project.lobby;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
@@ -12,7 +11,7 @@ import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 
 public class SaveGame {
 
-    private static HashMap<String, GameData> saveGames;
+    private static final HashMap<String, GameData> saveGames;
     static {
         saveGames = new HashMap<>();
         try {
@@ -32,9 +31,10 @@ public class SaveGame {
         return saveGames;
     }
 
+    @SuppressWarnings("unchecked")
     public static void loadFromJSON() {
         FileHandle fileHandle = Gdx.files.local("save-index.json");
-        ArrayList<String> saveNames = json.fromJson(ArrayList.class, fileHandle.readString());
+        ArrayList<? extends String> saveNames = json.fromJson(ArrayList.class, fileHandle.readString());
         saveGames.clear();
         for(String name : saveNames) {
             try {
