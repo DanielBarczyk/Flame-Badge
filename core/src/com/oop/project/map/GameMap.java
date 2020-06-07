@@ -52,6 +52,41 @@ public abstract class GameMap {
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(2,8,this));
     }
 
+    void addEnemyCharactersMap3(){
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(6,2,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(7,3,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(6,4,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(8,0,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,4,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,4,this));
+
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(14,0,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,3,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(13,1,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(11,2,this));
+
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(14,8,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,7,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(13,6,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,8,this));
+
+
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(6,7,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(7,9,this));
+
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(4,8,this));
+
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(3,6,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(2,7,this));
+        enemyCharacters.add(EnemyCharacter.makeFirstBrigand().setPos(2,9,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(0,8,this));
+
+    }
+
+    void addEnemyCharactersMap4(){
+
+    }
+
     private void loadPlayableCharacters(ArrayList<PlayableCharacter> lista,ArrayList<Position> positions){
         for(int i=0;i<lista.size();i++){
             playableCharacters.add(lista.get(i).setPos(positions.get(i)));
@@ -70,17 +105,39 @@ public abstract class GameMap {
         result.add(new Position(0,3,this));
         result.add(new Position(0,0,this));
         result.add(new Position(2,1,this));
+        result.add(new Position(1,1,this));
         return result;
     }
 
     void addPlayableCharactersMap2(){
         if(game.currentGame.getParty().getCharacters().size()==3) {
-            game.currentGame.getParty().getCharacters().add(PlayableCharacter.makeLanceCav());
+            game.currentGame.getParty().getCharacters().add(PlayableCharacter.makeHealer());
             game.currentGame.getParty().getSelected().add(game.currentGame.getParty().getCharacters().get(3));
         }
         if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
             game.currentGame.getParty().selectDefaultCharacters();
         loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap2Positions());
+    }
+
+    void addPlayableCharactersMap3(){
+        if(game.currentGame.getParty().getCharacters().size()==4) {
+            game.currentGame.getParty().getCharacters().add(PlayableCharacter.makeLanceCav());
+            game.currentGame.getParty().getSelected().add(game.currentGame.getParty().getCharacters().get(4));
+        }
+        if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
+            game.currentGame.getParty().selectDefaultCharacters();
+        loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap3Positions());
+    }
+
+    void addPlayableCharactersMap4(){
+        if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
+            game.currentGame.getParty().selectDefaultCharacters();
+        loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap4Positions());
+    }
+    void addPlayableCharactersMap5(){
+        if(game.currentGame.getParty().getSelected()==null||game.currentGame.getParty().getSelected().size()==0)
+            game.currentGame.getParty().selectDefaultCharacters();
+        loadPlayableCharacters(game.currentGame.getParty().getSelected(), getMap5Positions());
     }
 
     private ArrayList<Position> getMap2Positions(){
@@ -89,6 +146,34 @@ public abstract class GameMap {
         result.add(new Position(3,2,this));
         result.add(new Position(1,1,this));
         result.add(new Position(2,2,this));
+        result.add(new Position(2,1,this));
+        return result;
+    }
+    private ArrayList<Position> getMap3Positions(){
+        ArrayList<Position> result=new ArrayList<>();
+        result.add(new Position(3,2,this));
+        result.add(new Position(2,3,this));
+        result.add(new Position(2,1,this));
+        result.add(new Position(2,2,this));
+        result.add(new Position(1,1,this));
+        return result;
+    }
+    private ArrayList<Position> getMap4Positions(){
+        ArrayList<Position> result=new ArrayList<>();
+        result.add(new Position(2,3,this));
+        result.add(new Position(3,3,this));
+        result.add(new Position(0,1,this));
+        result.add(new Position(3,2,this));
+        result.add(new Position(1,1,this));
+        return result;
+    }
+    private ArrayList<Position> getMap5Positions(){
+        ArrayList<Position> result=new ArrayList<>();
+        result.add(new Position(2,4,this));
+        result.add(new Position(1,3,this));
+        result.add(new Position(2,2,this));
+        result.add(new Position(2,1,this));
+        result.add(new Position(0,1,this));
         return result;
     }
 
@@ -255,6 +340,8 @@ public abstract class GameMap {
     }
 
     private void endMap(){
-        game.gameMap = new TiledGameMap(game,2);
+        if(game.currentGame.getCurrentLevel()!=5)
+            game.currentGame.incrementCurrentLevel();
+        game.gameMap = new TiledGameMap(game);
     }
 }

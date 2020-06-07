@@ -16,14 +16,31 @@ public class TiledGameMap extends GameMap {
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public TiledGameMap(FlameBadge game, int lvl){
+    public TiledGameMap(FlameBadge game){
         this.game=game;
-        if(lvl==2)
-            loadmap2();
-        if(lvl==1)
-            loadmap1();
+        loadmaps();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         activeCharacter = playableCharacters.get(0);
+    }
+
+    private void loadmaps(){
+        switch (game.currentGame.getCurrentLevel()) {
+            case 1:
+                loadmap1();
+                break;
+            case 2:
+                loadmap2();
+                break;
+            case 3:
+                loadmap3();
+                break;
+            case 4:
+                loadmap4();
+                break;
+            case 5:
+                loadmap5();
+                break;
+        }
     }
 
     private void loadmap1(){
@@ -39,6 +56,24 @@ public class TiledGameMap extends GameMap {
         mapMaxX=14;
         mapMaxY=9;
         addPlayableCharactersMap2();
+        addEnemyCharactersMap2();
+    }private void loadmap3(){
+        tiledMap=new TmxMapLoader().load("map3.tmx");
+        mapMaxX=14;
+        mapMaxY=9;
+        addPlayableCharactersMap3();
+        addEnemyCharactersMap3();
+    }private void loadmap4(){
+        tiledMap=new TmxMapLoader().load("map4.tmx");
+        mapMaxX=14;
+        mapMaxY=9;
+        addPlayableCharactersMap4();
+        addEnemyCharactersMap2();
+    }private void loadmap5(){
+        tiledMap=new TmxMapLoader().load("map5.tmx");
+        mapMaxX=14;
+        mapMaxY=9;
+        addPlayableCharactersMap5();
         addEnemyCharactersMap2();
     }
 

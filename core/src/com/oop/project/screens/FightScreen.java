@@ -11,7 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.FlameBadge;
 import com.oop.project.battles.Combat;
+import com.oop.project.battles.Ranges;
 import com.oop.project.entities.EnemyCharacter;
+import com.oop.project.entities.PlayableCharacter;
 import com.oop.project.lobby.GameData;
 import com.oop.project.map.TileType;
 import com.oop.project.map.TiledGameMap;
@@ -29,7 +31,7 @@ public class FightScreen implements Screen {
 
     @Override
     public void show() {
-        game.gameMap = new TiledGameMap(game, 1);
+        game.gameMap = new TiledGameMap(game);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -61,40 +63,70 @@ public class FightScreen implements Screen {
             if(type != null) { //if we clicked in bounds
                 int tileX = (int) (pos.x / TileType.TILE_SIZE);
                 int tileY = (int) (pos.y / TileType.TILE_SIZE);
-                if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
-                        game.gameMap.playableOnTile(tileX, tileY).printStats();
-                        game.gameMap.playableOnTile(tileX, tileY).printStatsButton(stage,skin);
-                    }
-                    if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
-                        game.gameMap.enemyOnTile(tileX, tileY).printStats();
-                        game.gameMap.enemyOnTile(tileX, tileY).printStatsButton(stage,skin);
-                    }
-                } else if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
-                    if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
-                        EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX, tileY);
-                        if (Combat.canTheyFight(game.gameMap.activeCharacter, enemyCharacter)) {
-                            Combat.showCombatPrediction(game.gameMap.activeCharacter,enemyCharacter,stage,skin);
-                        }
-                    }
+                if(shiftCheck(tileX,tileY)) {
+                } else if(controlCheck(tileX,tileY)){
+                } else if(spaceCheck(tileX,tileY)) {
                 } else {
-                    if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
-                        Weapon.cleanInventoryButtons(game.gameMap.activeCharacter);
-                        game.gameMap.activeCharacter = game.gameMap.playableOnTile(tileX, tileY);
-                    }
-                    if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
-                        EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX, tileY);
-
-                        if (Combat.canTheyFight(game.gameMap.activeCharacter, enemyCharacter)) {
-                            Combat.battle(game.gameMap.activeCharacter, enemyCharacter);
-                            if (game.gameMap.activeCharacter.getCurrentHp() <= 0)
-                                game.gameMap.kill(game.gameMap.activeCharacter);
-                            if (enemyCharacter.getCurrentHp() <= 0)
-                                game.gameMap.kill(enemyCharacter);
-                            game.gameMap.activeCharacter.makeInactive();
-                        }
+                        noButtonsClick(tileX,tileY);
                     }
                 }
+            }
+        }
+
+
+    private boolean shiftCheck(int tileX,int tileY){
+        if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
+                game.gameMap.playableOnTile(tileX, tileY).printStats();
+                game.gameMap.playableOnTile(tileX, tileY).printStatsButton(stage,skin);
+            }
+            if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
+                game.gameMap.enemyOnTile(tileX, tileY).printStats();
+                game.gameMap.enemyOnTile(tileX, tileY).printStatsButton(stage,skin);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean controlCheck(int tileX, int tileY){
+        if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)){
+            if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
+                EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX, tileY);
+                if (Combat.canTheyFight(game.gameMap.activeCharacter, enemyCharacter)) {
+                    Combat.showCombatPrediction(game.gameMap.activeCharacter,enemyCharacter,stage,skin);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean spaceCheck(int tileX, int tileY) {
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if(game.gameMap.isTileOccupiedByPlayable(tileX,tileY)){
+                game.gameMap.activeCharacter.heal(game.gameMap.playableOnTile(tileX,tileY));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void noButtonsClick(int tileX, int tileY){
+        if (game.gameMap.isTileOccupiedByPlayable(tileX, tileY)) {
+            Weapon.cleanInventoryButtons(game.gameMap.activeCharacter);
+            game.gameMap.activeCharacter = game.gameMap.playableOnTile(tileX, tileY);
+        }
+        if (game.gameMap.isTileOccupiedByEnemy(tileX, tileY)) {
+            EnemyCharacter enemyCharacter = game.gameMap.enemyOnTile(tileX, tileY);
+
+            if (Combat.canTheyFight(game.gameMap.activeCharacter, enemyCharacter)) {
+                Combat.battle(game.gameMap.activeCharacter, enemyCharacter);
+                if (game.gameMap.activeCharacter.getCurrentHp() <= 0)
+                    game.gameMap.kill(game.gameMap.activeCharacter);
+                if (enemyCharacter.getCurrentHp() <= 0)
+                    game.gameMap.kill(enemyCharacter);
+                game.gameMap.activeCharacter.makeInactive();
             }
         }
     }

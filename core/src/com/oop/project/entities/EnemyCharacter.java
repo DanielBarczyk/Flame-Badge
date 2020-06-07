@@ -43,8 +43,22 @@ public class EnemyCharacter extends Entity {
         secondBrigand.currentlyEquipped=(Weapon)secondBrigand.getInventory().get(0);
         return secondBrigand;
     }
+    public static EnemyCharacter makeThirdBrigand(){
+        EnemyCharacter thirdBrigand=new EnemyCharacter("ThirdBrigand", "TEA", Ranges.MELEE,EnemyCharacter.setStats(10,8,6,4,5,3,2,3,0,1));
+        thirdBrigand.addItem(new Weapon("Iron Axe",200,5,55,0));
+        thirdBrigand.currentlyEquipped=(Weapon)thirdBrigand.getInventory().get(0);
+        return thirdBrigand;
+    }
+
     public static EnemyCharacter makeMage(){
-        EnemyCharacter mage=new EnemyCharacter("EnemyMage", "TEB", Ranges.MAGIC,EnemyCharacter.setStats(10,7,5,3,1,1,0,1,0,1));
+        EnemyCharacter mage=new EnemyCharacter("EnemyMage", "TEB", Ranges.MAGIC,EnemyCharacter.setStats(10,7,5,3,1,1,0,2,0,1));
+        mage.addItem(new Weapon("Fire",200,4,70,0));
+        mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
+        return mage;
+    }
+
+    public static EnemyCharacter makeSecondMage(){
+        EnemyCharacter mage=new EnemyCharacter("EnemyMage", "TEB", Ranges.MAGIC,EnemyCharacter.setStats(12,9,7,5,3,3,2,2,0,1));
         mage.addItem(new Weapon("Fire",200,4,70,0));
         mage.currentlyEquipped=(Weapon)mage.getInventory().get(0);
         return mage;

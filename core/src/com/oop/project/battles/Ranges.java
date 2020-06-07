@@ -3,7 +3,8 @@ package com.oop.project.battles;
 public enum Ranges {
     MELEE("melee",1,1,false),
     BOWS("bows",2,2,false),
-    MAGIC("magic",1,2,true);
+    MAGIC("magic",1,2,true),
+    HEALER("healer",0,0,true);
 
     private String id;
     private int min;

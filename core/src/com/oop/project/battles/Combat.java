@@ -57,6 +57,7 @@ public class Combat {
     }
 
     private static boolean canCounter(Entity a, Entity b){
+        if(b.getRange()==Ranges.HEALER) return false;
         if(a.getRange()==b.getRange()) return true;
         if(b.getRange()==Ranges.MAGIC) return true;
         if(a.getRange()==Ranges.MAGIC){
