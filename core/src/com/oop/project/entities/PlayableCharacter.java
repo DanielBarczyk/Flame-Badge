@@ -3,6 +3,7 @@ package com.oop.project.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Combat;
@@ -10,6 +11,7 @@ import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.Position;
 import com.oop.project.map.TileType;
+import com.oop.project.screens.Skins;
 
 import java.util.HashMap;
 
@@ -44,6 +46,7 @@ public class PlayableCharacter extends Entity {
         batch.draw(new Texture("idle/"+this.getShortname()+".png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
         else
         batch.draw(new Texture("acted/"+this.getShortname()+".png"),pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE);
+        Skins.SmallFont.draw(batch,"" + this.currentHp, pos.x * TileType.TILE_SIZE + 10,pos.y * TileType.TILE_SIZE + 30);
     }
 
 

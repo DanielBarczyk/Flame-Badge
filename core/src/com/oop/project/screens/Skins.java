@@ -97,5 +97,15 @@ public class Skins {
         return fontGenerator.generateFont(fontParameter);
     }
 
+    public static BitmapFont SmallFont;
+    static {
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter  = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
+        fontParameter.size = 20;
+        fontParameter.borderWidth = 2;
+        fontParameter.borderColor = Color.BLACK;
+        fontParameter.color = Color.SCARLET;
+        SmallFont = fontGenerator.generateFont(fontParameter);
+    }
 }

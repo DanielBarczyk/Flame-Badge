@@ -1,12 +1,14 @@
 package com.oop.project.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.oop.project.Equipment.Weapon;
 import com.oop.project.battles.Ranges;
 import com.oop.project.map.GameMap;
 import com.oop.project.map.TileType;
+import com.oop.project.screens.Skins;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -25,6 +27,7 @@ public class EnemyCharacter extends Entity {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(image,pos.x* TileType.TILE_SIZE,pos.y*TileType.TILE_SIZE,getWidth(),getHeight());
+        Skins.SmallFont.draw(batch,"" + this.currentHp, pos.x * TileType.TILE_SIZE + 10,pos.y * TileType.TILE_SIZE + 30);
     }
 
     @Override
