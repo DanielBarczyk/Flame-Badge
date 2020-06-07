@@ -3,11 +3,9 @@ package com.oop.project.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -31,14 +29,26 @@ public class PartyScreen implements Screen {
     private final Stage stage;
     private final Skin skin;
     private final BitmapFont font;
+    private final BitmapFont fontBold;
+    private final FreeTypeFontGenerator fontGenerator;
+    private final FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     private PlayableCharacter currentSelect;
 
     public PartyScreen(FlameBadge game) {
         this.game = game;
         this.stage = new Stage();
         this.skin = Skins.defaultSkin();
-        this.font = new BitmapFont();
         this.currentSelect = game.currentGame.getParty().getCharacters().get(0);
+        this.fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        this.fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        this.fontParameter.size = 40;
+        this.fontParameter.borderWidth = 5;
+        this.fontParameter.borderColor = Color.BLACK;
+        this.fontParameter.color = Color.WHITE;
+        this.font = fontGenerator.generateFont(fontParameter);
+        this.fontParameter.size = 50;
+        this.fontParameter.color = Color.LIGHT_GRAY;
+        this.fontBold = fontGenerator.generateFont(fontParameter);
     }
 
 
@@ -125,19 +135,21 @@ public class PartyScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
+
+        // This will draw the STATS of the character that was last hovered over.
         game.batch.begin();
         HashMap<Stats, Integer> unitStats = currentSelect.getUnitStats();
-        font.draw(game.batch, currentSelect.getLongname(), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-80);
-        font.draw(game.batch, "MAXHP: "+unitStats.get(Stats.MAXHP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-100);
-        font.draw(game.batch, "ATK: "+unitStats.get(Stats.ATK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-120);
-        font.draw(game.batch, "SPD: "+unitStats.get(Stats.SPD), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-140);
-        font.draw(game.batch, "SKILL: "+unitStats.get(Stats.SKILL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-160);
-        font.draw(game.batch, "LCK: "+unitStats.get(Stats.LUCK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-180);
-        font.draw(game.batch, "DEF: "+unitStats.get(Stats.DEF), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-200);
-        font.draw(game.batch, "RES: "+unitStats.get(Stats.RES), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-220);
-        font.draw(game.batch, "MOV: "+unitStats.get(Stats.MOV), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-240);
-        font.draw(game.batch, "EXP: "+unitStats.get(Stats.EXP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-260);
-        font.draw(game.batch, "LVL: "+unitStats.get(Stats.LVL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-280);
+        fontBold.draw(game.batch, currentSelect.getLongname(), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-80);
+        font.draw(game.batch, "HP: "+unitStats.get(Stats.MAXHP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-130);
+        font.draw(game.batch, "ATK: "+unitStats.get(Stats.ATK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-180);
+        font.draw(game.batch, "SPD: "+unitStats.get(Stats.SPD), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-230);
+        font.draw(game.batch, "SKILL: "+unitStats.get(Stats.SKILL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-280);
+        font.draw(game.batch, "LCK: "+unitStats.get(Stats.LUCK), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-330);
+        font.draw(game.batch, "DEF: "+unitStats.get(Stats.DEF), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-380);
+        font.draw(game.batch, "RES: "+unitStats.get(Stats.RES), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-430);
+        font.draw(game.batch, "MOV: "+unitStats.get(Stats.MOV), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-480);
+        font.draw(game.batch, "EXP: "+unitStats.get(Stats.EXP), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-530);
+        font.draw(game.batch, "LVL: "+unitStats.get(Stats.LVL), PORTRAIT_RESOLUTION*PORTRAIT_WIDTH, stage.getHeight()-580);
         game.batch.end();
     }
 
