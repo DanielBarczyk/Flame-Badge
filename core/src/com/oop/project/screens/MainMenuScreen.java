@@ -1,16 +1,16 @@
 package com.oop.project.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
-import com.oop.project.lobby.Party;
 
 import static com.oop.project.entities.Entity.printStatsExplanationButton;
 
@@ -18,11 +18,15 @@ public class MainMenuScreen implements Screen {
     private final FlameBadge game;
     private final Stage stage;
     private final Skin skin;
+    private final Texture backgroundImage;
+    private final BitmapFont font;
 
     public MainMenuScreen(FlameBadge game) {
         this.game = game;
         this.stage = new Stage();
         this.skin = Skins.defaultSkin();
+        this.backgroundImage = new Texture("mainbackground.png");
+        this.font = Skins.TitleFont();
     }
 
     @Override
@@ -56,24 +60,10 @@ public class MainMenuScreen implements Screen {
         });
         stage.addActor(loadButton);
 
-        // Create a button opening settings
-        TextButton settButton = new TextButton("Settings", skin);
-        settButton.setPosition((float)Gdx.graphics.getWidth()/2 - settButton.getWidth()/2,
-                (float)Gdx.graphics.getHeight()/2 - settButton.getHeight() - 10);
-        settButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //Party party = new Party("default");
-                //party.createCharacter();
-                //party.createCharacter();
-            }
-        });
-        stage.addActor(settButton);
-
         //Create a button exiting the game
         TextButton exitButton = new TextButton("Exit", skin);
         exitButton.setPosition((float)Gdx.graphics.getWidth()/2 - exitButton.getWidth()/2,
-                               (float)Gdx.graphics.getHeight()/2 - 2 * exitButton.getHeight() - 20);
+                               (float)Gdx.graphics.getHeight()/2 - exitButton.getHeight() - 10);
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -100,6 +90,13 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.batch.setProjectionMatrix(game.cam.combined);
+        game.batch.begin();
+        game.batch.draw(backgroundImage, 0, 0, stage.getWidth(), stage.getHeight());
+        font.draw(game.batch, "FLAME BADGE", game.cam.viewportWidth/2-380, game.cam.viewportHeight-40);
+        game.batch.end();
+
         stage.act();
         stage.draw();
     }

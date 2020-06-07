@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import java.util.Collection;
 
 public class Skins {
+
     public static Skin defaultSkin() {
         BitmapFont font = new BitmapFont();
         Skin skin = new Skin();
@@ -23,7 +25,7 @@ public class Skins {
         skin.add("background", new Texture(pixmap));
 
         TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-        textFieldStyle.font = skin.getFont("default");
+        textFieldStyle.font = BoldFont();
         textFieldStyle.fontColor = Color.LIGHT_GRAY;
         textFieldStyle.focusedFontColor = Color.WHITE;
         skin.add("default", textFieldStyle);
@@ -37,4 +39,63 @@ public class Skins {
         skin.add("default", textButtonStyle);
         return skin;
     }
+
+    public static BitmapFont DefaultFont() {
+
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter  = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 40;
+        fontParameter.borderWidth = 5;
+        fontParameter.borderColor = Color.BLACK;
+        fontParameter.color = Color.WHITE;
+        return fontGenerator.generateFont(fontParameter);
+    }
+
+    public static BitmapFont BoldFont() {
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter  = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 50;
+        fontParameter.borderWidth = 5;
+        fontParameter.borderColor = Color.BLACK;
+        fontParameter.color = Color.LIGHT_GRAY;
+        return fontGenerator.generateFont(fontParameter);
+    }
+
+    public static BitmapFont TitleFont() {
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter  = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 100;
+        fontParameter.borderWidth = 5;
+        fontParameter.borderColor = Color.FIREBRICK;
+        fontParameter.color = Color.SCARLET;
+        return fontGenerator.generateFont(fontParameter);
+    }
+
+    public static BitmapFont SubTitleFont() {
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter  = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 100;
+        fontParameter.borderWidth = 5;
+        fontParameter.borderColor = Color.BLACK;
+        fontParameter.color = Color.LIGHT_GRAY;
+        return fontGenerator.generateFont(fontParameter);
+    }
+
+    public static BitmapFont RedFont() {
+
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter fontParameter  = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        fontParameter.size = 40;
+        fontParameter.borderWidth = 5;
+        fontParameter.borderColor = Color.BLACK;
+        fontParameter.color = Color.RED;
+        return fontGenerator.generateFont(fontParameter);
+    }
+
+
 }

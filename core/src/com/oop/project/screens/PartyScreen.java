@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,9 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.oop.project.FlameBadge;
 import com.oop.project.entities.PlayableCharacter;
 import com.oop.project.entities.Stats;
-import com.oop.project.lobby.Party;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PartyScreen implements Screen {
@@ -30,8 +26,7 @@ public class PartyScreen implements Screen {
     private final Skin skin;
     private final BitmapFont font;
     private final BitmapFont fontBold;
-    private final FreeTypeFontGenerator fontGenerator;
-    private final FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+
     private PlayableCharacter currentSelect;
 
     public PartyScreen(FlameBadge game) {
@@ -39,16 +34,8 @@ public class PartyScreen implements Screen {
         this.stage = new Stage();
         this.skin = Skins.defaultSkin();
         this.currentSelect = game.currentGame.getParty().getCharacters().get(0);
-        this.fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Blackwood Castle.ttf"));
-        this.fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        this.fontParameter.size = 40;
-        this.fontParameter.borderWidth = 5;
-        this.fontParameter.borderColor = Color.BLACK;
-        this.fontParameter.color = Color.WHITE;
-        this.font = fontGenerator.generateFont(fontParameter);
-        this.fontParameter.size = 50;
-        this.fontParameter.color = Color.LIGHT_GRAY;
-        this.fontBold = fontGenerator.generateFont(fontParameter);
+        this.font = Skins.DefaultFont();
+        this.fontBold = Skins.BoldFont();
     }
 
 
