@@ -274,6 +274,18 @@ public abstract class Entity {
                 "LVL: The unit's level - determines how much exp the unit gets from battle";
     }
 
+    private static String controlsExplanationString(){
+        return "Arrow Keys move the active character\n" +
+                "E ends active character's move\n" +
+                "Enter ends the turn (Mandatory if all characters have already acted in a turn)\n" +
+                "Esc returns to character selection screen\n" +
+                "Shift+Click on an unit brings up their stats\n" +
+                "Ctrl+Click on an enemy unit in range brings up a battle forecast\n" +
+                "C returns the camera to the bottom right corner of the map\n" +
+                "I opens the active character's inventory;\n"+"There, you can switch the currently equipped weapon by clicking on another one\n" +
+                "Space+Click on an adjacent character if the active character is the healer heals the unit you click on";
+    }
+
     public void printStatsButton(Stage stage, Skin skin){
         final TextButton statsButton = new TextButton(statsString(), skin);
         if(this instanceof PlayableCharacter){
@@ -303,6 +315,19 @@ public abstract class Entity {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 statsButton.remove();
+            }
+        });
+    }
+
+    public static void printControlsExplanationButton(Stage stage, Skin skin){
+        final TextButton controlsButton = new TextButton(controlsExplanationString(), skin);
+        controlsButton.setPosition(40,
+                3*(float)Gdx.graphics.getHeight()/4 - controlsButton.getHeight()-20);
+        stage.addActor(controlsButton);
+        controlsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controlsButton.remove();
             }
         });
     }

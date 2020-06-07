@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.oop.project.FlameBadge;
 
+import static com.oop.project.entities.Entity.printControlsExplanationButton;
 import static com.oop.project.entities.Entity.printStatsExplanationButton;
 
 public class MainMenuScreen implements Screen {
@@ -85,6 +86,19 @@ public class MainMenuScreen implements Screen {
             }
         });
         stage.addActor(statsInfoButton);
+
+        //Create a button for controls explanation
+
+        TextButton controlsInfoButton = new TextButton("Controls", skin);
+        controlsInfoButton.setPosition(statsInfoButton.getWidth()/4,
+                3*(float)Gdx.graphics.getHeight()/4 - statsInfoButton.getHeight());
+        controlsInfoButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                printControlsExplanationButton(stage, skin);
+            }
+        });
+        stage.addActor(controlsInfoButton);
     }
 
     @Override
@@ -121,4 +135,5 @@ public class MainMenuScreen implements Screen {
         stage.dispose();
         skin.dispose();
     }
+
 }
