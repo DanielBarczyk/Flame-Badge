@@ -73,7 +73,8 @@ public class PlayableCharacter extends Entity {
                 }
             }
             else{
-                if(noEnemiesInRange()) active=false;
+                if(noEnemiesInRange()&& getRange()!=Ranges.HEALER) active=false;
+                if(noAdjacentAllies()&&getRange()==Ranges.HEALER) active=false;
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.E))
                 active=false;
@@ -96,6 +97,13 @@ public class PlayableCharacter extends Entity {
     private boolean noEnemiesInRange() {
         for(EnemyCharacter e:map.getEnemyCharacters()) {
             if(Combat.canTheyFight(map.activeCharacter,e)) return false;
+        }
+        return true;
+    }
+
+    private boolean noAdjacentAllies(){
+        for(PlayableCharacter p:map.getPlayableCharacters()){
+            if(getDistance(p)==1) return false;
         }
         return true;
     }

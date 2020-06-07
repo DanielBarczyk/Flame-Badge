@@ -62,7 +62,7 @@ public abstract class GameMap {
 
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(14,0,this));
         enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,3,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(13,1,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(12,1,this));
         enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(11,2,this));
 
         enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(14,8,this));
@@ -95,13 +95,13 @@ public abstract class GameMap {
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(7,1,this));
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(8,2,this));
 
-        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(8,6,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(7,7,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,5,this));
-
-        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(9,5,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(9,5,this));
         enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(9,5,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(8,6,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(7,7,this));
+
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(10,1,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(11,7,this));
+        enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(10,6,this));
 
         enemyCharacters.add(EnemyCharacter.makeSecondBrigand().setPos(14,3,this));
         enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(13,4,this));
@@ -114,10 +114,10 @@ public abstract class GameMap {
         enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,9,this));
         enemyCharacters.add(EnemyCharacter.makeThirdBrigand().setPos(12,7,this));
 
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,2,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(7,6,this));
         enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(8,8,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(7,7,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(8,9,this));
-        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,10,this));
+        enemyCharacters.add(EnemyCharacter.makeSecondMage().setPos(9,9,this));
 
     }
 
@@ -143,7 +143,7 @@ public abstract class GameMap {
         enemyCharacters.add(EnemyCharacter.makeThirdMage().setPos(8,3,this));
 
         enemyCharacters.add(EnemyCharacter.makeFourthBrigand().setPos(6,5,this));
-        enemyCharacters.add(EnemyCharacter.makeFourthBrigand().setPos(6,9,this));
+        enemyCharacters.add(EnemyCharacter.makeFourthBrigand().setPos(9,5,this));
 
         enemyCharacters.add(EnemyCharacter.makeFourthBrigand().setPos(13,1,this));
         enemyCharacters.add(EnemyCharacter.makeFourthBrigand().setPos(13,3,this));
@@ -242,8 +242,8 @@ public abstract class GameMap {
         result.add(new Position(3,3,this));
         result.add(new Position(2,2,this));
         result.add(new Position(2,3,this));
-        result.add(new Position(3,2,this));
         result.add(new Position(0,2,this));
+        result.add(new Position(3,2,this));
         return result;
     }
 
@@ -372,6 +372,8 @@ public abstract class GameMap {
     public ArrayList<EnemyCharacter> getEnemyCharacters(){
         return enemyCharacters;
     }
+
+    public ArrayList<PlayableCharacter> getPlayableCharacters(){ return playableCharacters;}
 
     private void moveEnemy(EnemyCharacter enemyCharacter){
         PlayableCharacter target=null;

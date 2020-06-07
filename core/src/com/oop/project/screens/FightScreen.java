@@ -105,7 +105,8 @@ public class FightScreen implements Screen {
     private boolean spaceCheck(int tileX, int tileY) {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if(game.gameMap.isTileOccupiedByPlayable(tileX,tileY)){
-                game.gameMap.activeCharacter.heal(game.gameMap.playableOnTile(tileX,tileY));
+                if(game.gameMap.activeCharacter!=null)
+                    game.gameMap.activeCharacter.heal(game.gameMap.playableOnTile(tileX,tileY));
             }
             return true;
         }
