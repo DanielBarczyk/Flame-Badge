@@ -1,6 +1,7 @@
 package com.oop.project.map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.oop.project.FlameBadge;
@@ -98,6 +99,8 @@ public abstract class GameMap {
         for(Entity entity: enemyCharacters){
             entity.render(spriteBatch);
         }
+        if(activeCharacter != null)
+            spriteBatch.draw(new Texture("charframe.png"), activeCharacter.getPos().x * TileType.TILE_SIZE, activeCharacter.getPos().y * TileType.TILE_SIZE);
     }
 
     public void update(float delta){

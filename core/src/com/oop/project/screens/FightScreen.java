@@ -20,10 +20,11 @@ public class FightScreen implements Screen {
     private FlameBadge game;
     private final Stage stage;
     private final Skin skin;
+
     FightScreen(FlameBadge game) {
         this.game = game;
         this.stage = new Stage();
-        this.skin=Skins.defaultSkin();
+        this.skin = Skins.defaultSkin();
     }
 
     @Override
@@ -100,6 +101,8 @@ public class FightScreen implements Screen {
 
     private void keyboardInput(){
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.cam.position.set(game.cam.viewportWidth/2, game.cam.viewportHeight/2, 0);
+            game.cam.update();
             dispose();
             game.setScreen(new LobbyScreen(game));
             return;
@@ -110,6 +113,11 @@ public class FightScreen implements Screen {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.I)){
             Weapon.showItems(stage, skin, game.gameMap.activeCharacter);
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C)){
+            game.cam.position.set(game.cam.viewportWidth/2, game.cam.viewportHeight/2, 0);
+            game.cam.update();
         }
     }
 

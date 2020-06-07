@@ -30,7 +30,7 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // Create a button starting a new game
-        final TextButton gameButton = new TextButton("New game", skin);
+        final TextButton gameButton = new TextButton("New Game", skin);
         gameButton.setPosition((float)Gdx.graphics.getWidth()/2 - gameButton.getWidth()/2,
                                (float)Gdx.graphics.getHeight()/2 + gameButton.getHeight() + 10);
         gameButton.addListener(new ClickListener() {
@@ -44,7 +44,7 @@ public class MainMenuScreen implements Screen {
         stage.addActor(gameButton);
 
         // Create a button loading a game
-        TextButton loadButton = new TextButton("Load game", skin);
+        TextButton loadButton = new TextButton("Load Game", skin);
         loadButton.setPosition((float)Gdx.graphics.getWidth()/2 - loadButton.getWidth()/2,
                                (float)Gdx.graphics.getHeight()/2);
         loadButton.addListener(new ClickListener() {

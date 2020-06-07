@@ -2,20 +2,14 @@ package com.oop.project.lobby;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Base64Coder;
 import com.oop.project.entities.PlayableCharacter;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-
 import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 
 public class GameData {
     private String saveName;
-    private Party party;
+    private final Party party;
 
+    // The JSON library requires a default constructor, so this method is necessary.
     public GameData() {
         party = new Party();
     }
